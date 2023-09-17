@@ -7,7 +7,6 @@ const User = require("../Models/user.model.js"); // Path to your User model file
 const authMiddleware = require("../Middleware/auth.middleware.js")
 
 const router = express.Router();
-
 // Multer storage configuration
 const storage = multer.diskStorage({
   destination: "./uploads/", // Specify the directory to which the file will be saved
@@ -76,7 +75,11 @@ router.post("/login", async (req, res) => {
     // Generate JWT token
     const token = jwt.sign(
       { userId: user._id, 
-        name: user.name
+        name: user.name,
+        email: user.email,
+        address: user.address,
+        mobileNumber: user.mobileNumber,
+        image:user.image
        },
       process.env.SECRET_KEY,
       {
