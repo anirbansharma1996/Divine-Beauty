@@ -6,9 +6,11 @@ const authMiddleware = require ('../Middleware/auth.middleware.js')
 const router = express.Router();
 //:::::::::::: Add item to cart ::::::::
 router.post("/cart/add", authMiddleware, async (req, res) => {
-  console.log(req.body,req.user._id)
+
+  console.log()
   try {
-    const { productId, quantity } = req.body;
+    const productId= req.body._id
+    const quantity  =  1;
     const userId = req.user._id;
 
     const user = await User.findById(userId);

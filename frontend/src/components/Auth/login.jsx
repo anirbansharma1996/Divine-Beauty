@@ -1,23 +1,22 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
-import axios from 'axios'
+import axios from "axios";
 
 export const Login = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [isVisible, setIsvisible] = useState(false);
-  const [logUser,setLogUser] = useState({
-    email:"",password:""
-  })
+  const [logUser, setLogUser] = useState({
+    email: "",
+    password: "",
+  });
 
   const postLogData = async (user) => {
     try {
-      const response = await axios.post(
-        "http://127.0.0.1:8008/v1/login",
-        user
-      );
+      const response = await axios.post("http://127.0.0.1:8008/v1/login", user);
       alert(response.data.message);
-      localStorage.setItem('auth',response.data.token)
+      localStorage.setItem("auth", response.data.token);
       if (response.data.message === "Login successful") {
+        window.location.reload();
         setTimeout(() => {
           navigate("/products");
         }, 1200);
@@ -27,17 +26,15 @@ export const Login = () => {
     }
   };
 
-   const handleInput =(e)=>{
-     const {name , value} = e.target
-     setLogUser({...logUser,[name]:value})
-   }
+  const handleInput = (e) => {
+    const { name, value } = e.target;
+    setLogUser({ ...logUser, [name]: value });
+  };
 
-   const handleLogin =(e)=>{
-      e.preventDefault()
-      postLogData(logUser)
-   }
-
-
+  const handleLogin = (e) => {
+    e.preventDefault();
+    postLogData(logUser);
+  };
 
   return (
     <div className="container signup">
@@ -96,7 +93,7 @@ export const Login = () => {
               </form>
             </div>
           </div>
-          <div className="col-md-4 " >
+          <div className="col-md-4 ">
             <img
               src="https://img.freepik.com/free-vector/nature-cosmetics-landing-page-template_23-2148611602.jpg"
               className="img-fluid rounded-start"

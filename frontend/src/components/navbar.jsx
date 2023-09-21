@@ -1,9 +1,13 @@
 import React from "react";
+import { useNavigate } from "react-router";
 import jwt_decode from "jwt-decode";
 
 export const Navbar = () => {
-  const authToken = localStorage.getItem("auth");
-  const decoded = jwt_decode(authToken);
+  const authToken = localStorage.getItem("auth") || false;
+  var decoded = "";
+  if (authToken) {
+    decoded = jwt_decode(authToken);
+  }
 
   return (
     <div>
@@ -116,8 +120,13 @@ export const Navbar = () => {
 };
 
 export const User = ({ props }) => {
+  const navigate = useNavigate();
+
   return (
-    <div className="getstarted scrollto d-flex align-items-center">
+    <div
+      onClick={() => navigate("/user")}
+      className="getstarted scrollto d-flex align-items-center"
+    >
       <img
         style={{ width: "30px", borderRadius: "100%" }}
         src={props.image}

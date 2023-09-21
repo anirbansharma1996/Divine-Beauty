@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import {useNavigate} from 'react-router'
+import { useNavigate } from "react-router";
 import axios from "axios";
 
 export const Products = () => {
+  const authToken = localStorage.getItem("auth");
   const [originalProducts, setOriginalProducts] = useState([]);
   const [products, setProducts] = useState([]);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const fetchProducts = async () => {
     try {
       let response = await axios.get("http://127.0.0.1:8008/v1/products");
@@ -37,14 +38,26 @@ export const Products = () => {
     );
   };
 
-  const handleStore=(data)=>{
-    localStorage.setItem('product',JSON.stringify(data))
-    setTimeout(()=>{
-      navigate(`/product/${data._id}`)
-    },1200)
-  }
+  const handleStore = (data) => {
+    localStorage.setItem("product", JSON.stringify(data));
+    setTimeout(() => {
+      navigate(`/product/${data._id}`);
+    }, 1200);
+  };
 
-
+  const handleCart = async (el) => {
+    try {
+      let response = await axios.post(
+        "http://127.0.0.1:8008/v1/cart/add",
+        el,
+        { headers: { authorization:authToken } }
+      );
+      console.log(response.data.message);
+      alert(response.data.message)
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   return (
     <section id="portfolio" className="portfolio" style={{ marginTop: "25px" }}>
@@ -87,7 +100,10 @@ export const Products = () => {
         </div>
         <div className="row portfolio-container">
           {products.map((el) => (
-            <div onClick={()=>handleStore(el)} key={el.id} className="col-lg-4 col-md-6 portfolio-item">
+            <div
+              key={el.id}
+              className="col-lg-4 col-md-6 portfolio-item"
+            >
               <div className="portfolio-wrap">
                 <img src={el.image} className="img-fluid" alt="" />
                 <div className="portfolio-info">
@@ -99,7 +115,10 @@ export const Products = () => {
                   </h5>
                   <h6 style={{ color: "white" }}>Rating : {el.rating}</h6>
                   <div className="portfolio-links">
-                    <button className="btn btn-ghost">
+                    <button
+                      className="btn btn-ghost"
+                      onClick={() => handleCart(el)}
+                    >
                       <i
                         style={{
                           color: "white",
@@ -110,7 +129,10 @@ export const Products = () => {
                       ></i>
                     </button>
 
-                    <button onClick={()=>handleStore(el)} className="btn btn-ghost">
+                    <button
+                      onClick={() => handleStore(el)}
+                      className="btn btn-ghost"
+                    >
                       <i
                         style={{
                           color: "white",
