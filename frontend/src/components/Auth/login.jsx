@@ -16,10 +16,10 @@ export const Login = () => {
       alert(response.data.message);
       localStorage.setItem("auth", response.data.token);
       if (response.data.message === "Login successful") {
-        window.location.reload();
         setTimeout(() => {
           navigate("/products");
         }, 1200);
+        window.location.reload();
       }
     } catch (err) {
       alert(err.message);

@@ -37,9 +37,9 @@ router.post("/cart/add", authMiddleware, async (req, res) => {
 });
 
 //:::::::::::  Remove item from cart ::::::::::::::::
-router.post("/cart/remove", authMiddleware, async (req, res) => {
+router.delete("/cart/remove/:id", authMiddleware, async (req, res) => {
   try {
-    const { productId } = req.body;
+    const productId= req.params.id
     const userId = req.user._id;
 
     const user = await User.findById(userId);
@@ -55,7 +55,7 @@ router.post("/cart/remove", authMiddleware, async (req, res) => {
       await user.save();
     }
 
-    res.status(200).json({ message: "Item removed from cart successfully" });
+    res.status(200).json({ message: "Item has been removed from cart successfully" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error" });

@@ -67,4 +67,9 @@
     padding: 10px;
     margin-top: -2rem;
   }
+  .edit-cart {
+    display: flex;
+    width: 240px;
+    justify-content: space-between;
+  }
 }
