@@ -7,7 +7,6 @@ const router = express.Router();
 //:::::::::::: Add item to cart ::::::::
 router.post("/cart/add", authMiddleware, async (req, res) => {
 
-  console.log()
   try {
     const productId= req.body._id
     const quantity  =  1;
