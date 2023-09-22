@@ -1,23 +1,27 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import {useBill } from '../Context/billContext'
+
+
 
 export const CartCard = () => {
   const [cart, setCart] = useState([]);
-  const [total, setTotal] = useState( localStorage.getItem('Total')||0);
+  const [total, setTotal] = useState(0);
   const authToken = localStorage.getItem("auth") || "";
   const [isDeleted, setIsDeleted] = useState(false);
+  const { bill, updateBill } = useBill();
+
 
   useEffect(() => {
     handleGetCart();
 }, [isDeleted]);
 
 useEffect(() => {
-
   const calculatedTotal = cart.reduce(
     (acc, item) => acc + item.productId.price * item.quantity,
     0
   );
-  setTotal(calculatedTotal);
+  updateBill(calculatedTotal)
   localStorage.setItem('Total',calculatedTotal)
 }, [cart, isDeleted]);
 
@@ -67,7 +71,7 @@ useEffect(() => {
  
   return (
     <div className="user-cart">
-      <h1>{total}</h1>
+      <h1>{bill}</h1>
       {cart.map((el) => (
         <div className="cart-card">
           <div>

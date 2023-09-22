@@ -118,6 +118,7 @@ router.get("/user-details", authMiddleware, async (req, res) => {
       address: user.address,
       mobileNumber: user.mobileNumber,
       image: user.image,
+      cart:user.cart,
       paymentHistory: user.paymentDetails,
     };
 

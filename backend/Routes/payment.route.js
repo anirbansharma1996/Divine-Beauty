@@ -29,7 +29,7 @@ router.post("/payment", async (req, res) => {
         currency: "INR",
         customer: customer.id,
         receipt_email: token.email,
-        description: `Membership of ₹ ${total}/-`,
+        description: `₹ ${total}/-`,
         shipping: {
           name: token.card.name,
           address: {
@@ -66,3 +66,35 @@ router.post("/payment", async (req, res) => {
 });
 
 module.exports = router;
+
+// const express = require("express");
+// const router = express.Router();
+// const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY); // Make sure to set your Stripe secret key in your environment variables
+// const User = require("../models/user.model"); // Adjust the path to your user model as needed
+
+// // Route to handle payment processing
+// router.post("/process-payment", async (req, res) => {
+//   try {
+//     const { userId, amount, currency } = req.body;
+//     const user = await User.findById(userId);
+
+//     if (!user) {
+//       return res.status(404).json({ error: "User not found" });
+//     }
+
+//     // Create a payment intent with Stripe
+//     const paymentIntent = await stripe.paymentIntents.create({
+//       amount: amount,
+//       currency: currency,
+//       customer: user.stripeCustomerId, // You should have a field in your user model to store the Stripe customer ID
+//     });
+
+//     // Send the client secret to the frontend to complete the payment
+//     res.status(200).json({ clientSecret: paymentIntent.client_secret });
+//   } catch (error) {
+//     console.error("Payment processing error:", error);
+//     res.status(500).json({ error: "Payment processing error" });
+//   }
+// });
+
+// module.exports = router;

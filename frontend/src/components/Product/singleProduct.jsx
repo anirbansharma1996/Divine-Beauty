@@ -1,8 +1,22 @@
 import React from "react";
-
+import axios from "axios";
 export const SingleProduct = () => {
+  const authToken = localStorage.getItem("auth");
   const prod = JSON.parse(localStorage.getItem("product"));
-  console.log(prod);
+  //console.log(prod);
+  const handleCart = async (el) => {
+    try {
+      let response = await axios.post(
+        "http://127.0.0.1:8008/v1/cart/add",
+        el,
+        { headers: { authorization:authToken } }
+      );
+      console.log(response.data.message);
+      alert(response.data.message)
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
   return (
     <div
       className="card mb-3"
@@ -28,7 +42,7 @@ export const SingleProduct = () => {
           </div>
           <div style={{width:'80%',margin:'auto',textAlign:'center',marginBottom:'1rem'}}>
 
-          <button  style={{width:'80%',fontWeight:'600'}}  className="btn btn-warning">
+          <button onClick={() => handleCart(prod)}  style={{width:'80%',fontWeight:'600'}}  className="btn btn-warning">
             Add to <i className="bi bi-cart2"></i>
           </button>
           </div>
