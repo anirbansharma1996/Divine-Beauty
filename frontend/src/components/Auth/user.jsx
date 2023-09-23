@@ -34,9 +34,9 @@ export const UserData = () => {
     localStorage.removeItem("auth");
     localStorage.removeItem("Total");
     localStorage.removeItem("product");
+    window.location.reload();
     setTimeout(() => {
       navigate("/log-in");
-      window.location.reload();
     }, 1200);
   };
 

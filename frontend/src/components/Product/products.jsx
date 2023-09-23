@@ -103,16 +103,16 @@ export const Products = () => {
         <div className="row portfolio-container">
           {products.map((el) => (
             <div key={el.id} className="col-lg-3 col-md-6 portfolio-item">
-              <div className="portfolio-wrap">
-                <img src={el.image} className="img-fluid" alt={el.desc} />
+              <div className="portfolio-wrap" >
+                <img  src={el.image} className="img-fluid" alt={el.desc} />
                 <div className="portfolio-info">
-                  <p>{el.desc}</p>
+                  {/* <p>{el.desc}</p> */}
                   <h4>{el.title}</h4>
                   <p>{el.offer}</p>
                   <h5 style={{ color: "white" }}>
-                    Price : <s>₹ {el.original}</s> | ₹{el.price}
+                    Price : <s>₹ {el.original}</s> | ₹{el.price}/-
                   </h5>
-                  <h6 style={{ color: "white" }}>Rating : {el.rating}</h6>
+                  {/* <h6 style={{ color: "white" }}>Rating : {el.rating}</h6> */}
                   <div className="portfolio-links">
                     <button
                       className="btn btn-ghost"
