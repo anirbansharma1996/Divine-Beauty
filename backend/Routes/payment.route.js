@@ -8,7 +8,6 @@ const authMiddleware = require("../Middleware/auth.middleware.js");
 router.use(express.static("public"));
 
 router.post("/payment",authMiddleware, async (req, res) => {
- console.log(req.body)
   try {
     if (!req.body.token || !req.body.total) {
       return res.status(400).json({ error: "Invalid request body" });

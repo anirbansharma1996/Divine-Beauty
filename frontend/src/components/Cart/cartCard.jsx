@@ -71,7 +71,7 @@ useEffect(() => {
   };
  
   return (
-    <div className="user-cart">
+    <div className="" >
       {cart.map((el) => (
         <div className="cart-card">
           <div>

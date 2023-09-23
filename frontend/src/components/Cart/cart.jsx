@@ -8,9 +8,9 @@ export const Cart = () => {
         className="section-title"
         style={{ marginTop: "6rem", marginBottom: "1rem" }}
       >
-        <h2>cart</h2>
+        <h2 style={{marginBottom:"-2.5rem"}}>cart</h2>
       </div>
-      <div className="container">
+      <div className="container" >
         <CartCard />
       </div>
     </>

@@ -9,11 +9,12 @@ import jwt_decode from "jwt-decode";
 
 export const UserData = () => {
   const { bill } = useBill();
+  const { cart } = useCart();
   const navigate = useNavigate();
   const authToken = localStorage.getItem("auth");
   const [isPayform, setIsPayment] = useState(false);
   const [user, setUser] = useState([]);
-
+ 
   const getUser = async () => {
     try {
       const res = await axios.get("http://127.0.0.1:8008/v1/user-details", {
@@ -43,7 +44,11 @@ export const UserData = () => {
     if (!authToken) {
       navigate("/log-in");
     } else {
-      setIsPayment(true);
+      if (cart.length!==0) {
+        setIsPayment(true);
+      } else {
+        alert("Add something to your Cart first");
+      }
     }
   };
 
@@ -59,25 +64,36 @@ export const UserData = () => {
         <CartCard />
         <div className="user-details">
           <div className="user-details-div">
-            <img
-              width={40}
-              style={{ borderRadius: "100%" }}
-              src={user.image}
-              alt={user.mobileNumber}
-            />{" "}
-            <h4>
-              {" "}
-              <b>{user.name}</b>
-            </h4>
-            <button onClick={handleLogout} className="btn btn-danger">
-              Log Out
-            </button>
-            <button
-              onClick={() => navigate("/orders")}
-              className="btn btn-warning"
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+              }}
             >
-              My Orders
-            </button>
+              <img
+                width={40}
+                style={{ borderRadius: "100%" }}
+                src={user.image}
+                alt={user.mobileNumber}
+              />{" "}
+              <h4>
+                {" "}
+                &nbsp;
+                <b>{user.name}</b>
+              </h4>
+            </div>
+            <div>
+              <button
+                onClick={() => navigate("/orders")}
+                className="btn btn-warning"
+              >
+                My Orders
+              </button>
+              &nbsp;
+              <button onClick={handleLogout} className="btn btn-danger">
+                Log Out
+              </button>
+            </div>
           </div>
           <p>
             {" "}
@@ -141,7 +157,7 @@ export const UserData = () => {
             <p>₹ {bill + (bill * 18) / 100}/-</p>
           </div>
 
-          {isPayform ? (
+          {cart.length !==0 &&isPayform ? (
             <Payment props={user} />
           ) : (
             <button

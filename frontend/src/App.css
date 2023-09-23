@@ -40,7 +40,7 @@
 }
 .user-details-div{
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   padding: 10px;
 
@@ -94,5 +94,14 @@
     display: flex;
     width: 240px;
     justify-content: space-between;
+  }
+  .user-details-div{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    padding: 10px;
+  
   }
 }

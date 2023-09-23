@@ -33,11 +33,12 @@ export const Navbar = () => {
                   Membership
                 </a>
               </li>
-              <li>
+             {authToken && <li>
                 <a className="nav-link scrollto" href="/cart">
                   Cart
                 </a>
               </li>
+              }
               {!authToken ? (
                 <li>
                   <a className="getstarted scrollto" href="/sign-up">
@@ -91,11 +92,11 @@ export const Navbar = () => {
                       Membership
                     </a>
                   </li>
-                  <li data-bs-dismiss="offcanvas">
+                  {authToken && <li data-bs-dismiss="offcanvas">
                     <a className="nav-link scrollto" href="/cart">
                       Cart
                     </a>
-                  </li>
+                  </li>}
                   {!authToken ? (
                     <li data-bs-dismiss="offcanvas">
                       <a

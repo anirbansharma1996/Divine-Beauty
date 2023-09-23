@@ -46,14 +46,16 @@ export const Products = () => {
   };
 
   const handleCart = async (el) => {
+    if (!authToken) {
+      return alert("You Need to Log in First");
+    }
+
     try {
-      let response = await axios.post(
-        "http://127.0.0.1:8008/v1/cart/add",
-        el,
-        { headers: { authorization:authToken } }
-      );
+      let response = await axios.post("http://127.0.0.1:8008/v1/cart/add", el, {
+        headers: { authorization: authToken },
+      });
       console.log(response.data.message);
-      alert(response.data.message)
+      alert(response.data.message);
     } catch (error) {
       console.log(error.message);
     }
@@ -100,10 +102,7 @@ export const Products = () => {
         </div>
         <div className="row portfolio-container">
           {products.map((el) => (
-            <div
-              key={el.id}
-              className="col-lg-3 col-md-6 portfolio-item"
-            >
+            <div key={el.id} className="col-lg-3 col-md-6 portfolio-item">
               <div className="portfolio-wrap">
                 <img src={el.image} className="img-fluid" alt={el.desc} />
                 <div className="portfolio-info">
