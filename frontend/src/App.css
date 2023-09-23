@@ -67,6 +67,18 @@
   display: flex;
  
 }
+#hero{
+  height: 350px;
+}
+
+
+
+.order{
+  padding: 15px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  border-radius: 20px;
+  margin: 10px;
+}
 
 
 @media (max-width: 768px) {

@@ -8,12 +8,12 @@ const authMiddleware = require("../Middleware/auth.middleware.js");
 router.use(express.static("public"));
 
 router.post("/payment",authMiddleware, async (req, res) => {
- //console.log(req.body)
+ console.log(req.body)
   try {
     if (!req.body.token || !req.body.total) {
       return res.status(400).json({ error: "Invalid request body" });
     }
-    const { token, total } = req.body;
+    const { token, total , items } = req.body;
 
     const idempotencyKey = uuid();
 
@@ -46,16 +46,16 @@ router.post("/payment",authMiddleware, async (req, res) => {
       return res.status(404).json({ error: "Member not found" });
     }
 
-    // Create the payment details object
     const paymentDetails = {
       amount: Math.ceil(total),
       currency: "INR",
       chargeId: charge.id,
+      cart:items,
     };
 
     member.paymentDetails.push(paymentDetails);
+    member.cart = [];
     await member.save();
-
     res.status(200).json({ charge, member });
   } catch (error) {
     console.log(error.message);
@@ -65,34 +65,4 @@ router.post("/payment",authMiddleware, async (req, res) => {
 
 module.exports = router;
 
-// const express = require("express");
-// const router = express.Router();
-// const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY); // Make sure to set your Stripe secret key in your environment variables
-// const User = require("../models/user.model"); // Adjust the path to your user model as needed
 
-// // Route to handle payment processing
-// router.post("/process-payment", async (req, res) => {
-//   try {
-//     const { userId, amount, currency } = req.body;
-//     const user = await User.findById(userId);
-
-//     if (!user) {
-//       return res.status(404).json({ error: "User not found" });
-//     }
-
-//     // Create a payment intent with Stripe
-//     const paymentIntent = await stripe.paymentIntents.create({
-//       amount: amount,
-//       currency: currency,
-//       customer: user.stripeCustomerId, // You should have a field in your user model to store the Stripe customer ID
-//     });
-
-//     // Send the client secret to the frontend to complete the payment
-//     res.status(200).json({ clientSecret: paymentIntent.client_secret });
-//   } catch (error) {
-//     console.error("Payment processing error:", error);
-//     res.status(500).json({ error: "Payment processing error" });
-//   }
-// });
-
-// module.exports = router;

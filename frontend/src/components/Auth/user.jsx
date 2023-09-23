@@ -4,7 +4,8 @@ import { CartCard } from "../Cart/cartCard";
 import axios from "axios";
 import { useBill } from "../Context/billContext";
 import StripeCheckout from "react-stripe-checkout";
-import jwt_decode from "jwt-decode"
+import { useCart } from "../Context/cartContext";
+import jwt_decode from "jwt-decode";
 
 export const UserData = () => {
   const { bill } = useBill();
@@ -34,12 +35,16 @@ export const UserData = () => {
     localStorage.removeItem("product");
     setTimeout(() => {
       navigate("/log-in");
+      window.location.reload();
     }, 1200);
-    window.location.reload();
   };
 
   const handleCheckOut = () => {
-    setIsPayment(true);
+    if (!authToken) {
+      navigate("/log-in");
+    } else {
+      setIsPayment(true);
+    }
   };
 
   return (
@@ -66,6 +71,12 @@ export const UserData = () => {
             </h4>
             <button onClick={handleLogout} className="btn btn-danger">
               Log Out
+            </button>
+            <button
+              onClick={() => navigate("/orders")}
+              className="btn btn-warning"
+            >
+              My Orders
             </button>
           </div>
           <p>
@@ -148,18 +159,29 @@ export const UserData = () => {
 };
 
 export const Payment = ({ props }) => {
+  const navigate = useNavigate();
   const { bill } = useBill();
+  const { cart } = useCart();
+
   const authToken = localStorage.getItem("auth");
   const decoded = jwt_decode(authToken);
-  
-  const total = Math.ceil(bill + (bill * 18) / 100) ;
+
+  const total = Math.ceil(bill + (bill * 18) / 100);
   const makePayment = async () => {
+    console.log("ok");
     try {
-      const res = await axios.post("http://127.0.0.1:8008/v1/payment", {total:total,token:decoded}, {
-        headers: { Authorization: authToken },
-      });
-      if(res){
-        alert('Payment Successfull')
+      const res = await axios.post(
+        "http://127.0.0.1:8008/v1/payment",
+        { total: total, token: decoded, items: cart },
+        {
+          headers: { Authorization: authToken },
+        }
+      );
+      if (res) {
+        alert("Payment Successfull");
+        setTimeout(() => {
+          navigate("/payment-success");
+        }, 1200);
       }
     } catch (error) {
       console.log(error.message);

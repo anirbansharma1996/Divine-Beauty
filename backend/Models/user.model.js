@@ -13,6 +13,7 @@ const paymentDetailsSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  cart:{}
 });
 const cartItemSchema = new mongoose.Schema({
   productId: {

@@ -86,10 +86,6 @@ router.post("/login", async (req, res) => {
         expiresIn: "28d", 
       }
     );
-
-    // Log the token
-    //console.log("Generated JWT token");
-     // Remove the password field from the user object
      const { password: omitPassword, ...userDetails } = user.toObject();
 
     res.status(200).json({ message: "Login successful",token, user: userDetails });

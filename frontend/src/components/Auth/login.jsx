@@ -18,8 +18,8 @@ export const Login = () => {
       if (response.data.message === "Login successful") {
         setTimeout(() => {
           navigate("/products");
+          window.location.reload();
         }, 1200);
-        window.location.reload();
       }
     } catch (err) {
       alert(err.message);
@@ -93,7 +93,13 @@ export const Login = () => {
               </form>
             </div>
           </div>
-          <div className="col-md-4 ">
+          <div className="col-md-4 " style={{ marginTop: "1rem" }}>
+            <div
+              style={{ marginBottom: "1rem" }}
+              className="d-flex justify-content-center"
+            >
+               <p>Don't have an Account ? <span><a href="/sign-up">Sign up</a>{" "}here.</span></p>
+            </div>
             <img
               src="https://img.freepik.com/free-vector/nature-cosmetics-landing-page-template_23-2148611602.jpg"
               className="img-fluid rounded-start"

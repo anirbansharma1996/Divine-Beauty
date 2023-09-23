@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import {useBill } from '../Context/billContext'
+import { useCart } from "../Context/cartContext";
 
 
 
 export const CartCard = () => {
   const [cart, setCart] = useState([]);
-  const [total, setTotal] = useState(0);
   const authToken = localStorage.getItem("auth") || "";
   const [isDeleted, setIsDeleted] = useState(false);
-  const { bill, updateBill } = useBill();
+  const { updateBill } = useBill();
+  const { updateCart}=useCart()
 
 
   useEffect(() => {
@@ -30,13 +31,13 @@ useEffect(() => {
       let response = await axios.get("http://127.0.0.1:8008/v1/cart", {
         headers: { authorization: authToken },
       });
-      // console.log(response.data.cart);
       setCart((prev) => response.data.cart);
+      updateCart(response.data.cart)
     } catch (error) {
       console.log(error.message);
     }
   };
-  //console.log(cart);
+
   const handleRemove = async (id) => {
     const boolean = window.confirm("items will be removed from cart");
     if (boolean) {
@@ -71,7 +72,6 @@ useEffect(() => {
  
   return (
     <div className="user-cart">
-      <h1>{bill}</h1>
       {cart.map((el) => (
         <div className="cart-card">
           <div>

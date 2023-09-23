@@ -1,18 +1,32 @@
 import React from "react";
 import axios from "axios";
+
+const reviews = [
+  {
+    id: 1,
+    rating: 5,
+    reviewText: "Great product! I love it.",
+    author: "Amitabh",
+  },
+  {
+    id: 2,
+    rating: 4,
+    reviewText: "Good product. Could be better.",
+    author: "salman",
+  },
+];
+
 export const SingleProduct = () => {
   const authToken = localStorage.getItem("auth");
   const prod = JSON.parse(localStorage.getItem("product"));
   //console.log(prod);
   const handleCart = async (el) => {
     try {
-      let response = await axios.post(
-        "http://127.0.0.1:8008/v1/cart/add",
-        el,
-        { headers: { authorization:authToken } }
-      );
+      let response = await axios.post("http://127.0.0.1:8008/v1/cart/add", el, {
+        headers: { authorization: authToken },
+      });
       console.log(response.data.message);
-      alert(response.data.message)
+      alert(response.data.message);
     } catch (error) {
       console.log(error.message);
     }
@@ -40,12 +54,38 @@ export const SingleProduct = () => {
             </h4>
             <h6>Rating : {prod.rating}</h6>
           </div>
-          <div style={{width:'80%',margin:'auto',textAlign:'center',marginBottom:'1rem'}}>
-
-          <button onClick={() => handleCart(prod)}  style={{width:'80%',fontWeight:'600'}}  className="btn btn-warning">
-            Add to <i className="bi bi-cart2"></i>
-          </button>
+          <div
+            style={{
+              width: "80%",
+              margin: "auto",
+              textAlign: "center",
+              marginBottom: "1rem",
+            }}
+          >
+            <button
+              onClick={() => handleCart(prod)}
+              style={{ width: "80%", fontWeight: "600" }}
+              className="btn btn-warning"
+            >
+              Add to <i className="bi bi-cart2"></i>
+            </button>
           </div>
+         <div style={{width:"80%",margin:"auto",marginBottom:"10px"}} className="row mt-4">
+          <div className="col-md-12">
+            <h5>Product Reviews</h5>
+            <ul className="list-group">
+              {reviews.map((review) => (
+                <li key={review.id} className="list-group-item">
+                  <div>
+                    <strong>Rating : </strong> {review.rating}/5
+                  </div>
+                  <p>{review.reviewText}</p>
+                  <small  style={{color:"grey"}}>By {review.author}</small>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
         </div>
       </div>
     </div>

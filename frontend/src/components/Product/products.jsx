@@ -102,10 +102,10 @@ export const Products = () => {
           {products.map((el) => (
             <div
               key={el.id}
-              className="col-lg-4 col-md-6 portfolio-item"
+              className="col-lg-3 col-md-6 portfolio-item"
             >
               <div className="portfolio-wrap">
-                <img src={el.image} className="img-fluid" alt="" />
+                <img src={el.image} className="img-fluid" alt={el.desc} />
                 <div className="portfolio-info">
                   <p>{el.desc}</p>
                   <h4>{el.title}</h4>
