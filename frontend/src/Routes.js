@@ -11,19 +11,19 @@ import { Order } from "./components/Orders/order";
 import { Success } from "./components/sucess";
 
 export const AllRoutes = () => {
-    return (
-        <Routes>
-          <Route path={"/"} element={<Home />}></Route>
-          <Route path={"/products"} element={<Products />}></Route>
-          <Route path={"/product/:id"} element={<SingleProduct />}></Route>
-          <Route path={"/membership"} element={<Membership />}></Route>
-          <Route path={"/cart"} element={<Cart />}></Route>
-          <Route path={"/sign-up"} element={<Signup />}></Route>
-          <Route path={"/log-in"} element={<Login />}></Route>
-          <Route path={"/user"} element={<UserData />}></Route>
-          <Route path={"/orders"} element={<Order />}></Route>
-          <Route path={"/payment-success"} element={<Success />}></Route>
-          <Route path={"*"} element={<Home />}></Route>
-        </Routes>
-      );
+  return (
+    <Routes>
+      <Route path={"/"} element={<Home />}></Route>
+      <Route path={"/products"} element={<Products />}></Route>
+      <Route path={"/product/:id"} element={<SingleProduct />}></Route>
+      <Route path={"/membership"} element={<Membership />}></Route>
+      <Route path={"/cart"} element={<Cart />}></Route>
+      <Route path={"/sign-up"} element={<Signup />}></Route>
+      <Route path={"/log-in"} element={<Login />}></Route>
+      <Route path={"/user"} element={<UserData />}></Route>
+      <Route path={"/orders"} element={<Order />}></Route>
+      <Route path={"/payment-success"} element={<Success />}></Route>
+      <Route path={"*"} element={<Home />}></Route>
+    </Routes>
+  );
 };

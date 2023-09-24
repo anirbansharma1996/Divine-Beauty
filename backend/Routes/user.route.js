@@ -4,7 +4,7 @@ const multer = require("multer");
 const path = require("path");
 const jwt = require("jsonwebtoken");
 const User = require("../Models/user.model.js"); // Path to your User model file
-const authMiddleware = require("../Middleware/auth.middleware.js")
+const authMiddleware = require("../Middleware/auth.middleware.js");
 
 const router = express.Router();
 // Multer storage configuration
@@ -29,28 +29,29 @@ const fileFilter = (req, file, cb) => {
 const upload = multer({ storage, fileFilter });
 
 router.post("/signup", upload.single("image"), async (req, res) => {
+
   try {
-    const { name, email, address, mobileNumber, password } = req.body;
-    // Check if the email already exists in the database
+    const { name, email, address, mobileNumber,gender, password } = req.body;
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(400).json({ message: "Email already exists" });
     }
-    // Hash the password
+  
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Create a new user
+   
     const newUser = new User({
       name,
       email,
       address,
       mobileNumber,
-      image: req.file ? req.file.filename : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png",
+      gender,
+      image: gender === "male"
+        ? "https://thumbs.dreamstime.com/b/vector-illustration-avatar-dummy-logo-collection-image-icon-stock-isolated-object-set-symbol-web-137160339.jpg"
+        : "https://thumbs.dreamstime.com/b/vector-illustration-avatar-dummy-symbol-collection-avatar-image-stock-symbol-web-isolated-object-avatar-137159059.jpg",
       password: hashedPassword,
     });
-    // Save the user to the database
     await newUser.save();
-
     res.status(201).json({ message: "User created successfully" });
   } catch (error) {
     console.error(error);
@@ -74,21 +75,24 @@ router.post("/login", async (req, res) => {
 
     // Generate JWT token
     const token = jwt.sign(
-      { userId: user._id, 
+      {
+        userId: user._id,
         name: user.name,
         email: user.email,
         address: user.address,
         mobileNumber: user.mobileNumber,
-        image:user.image
-       },
+        image: user.image,
+      },
       process.env.SECRET_KEY,
       {
-        expiresIn: "28d", 
+        expiresIn: "28d",
       }
     );
-     const { password: omitPassword, ...userDetails } = user.toObject();
+    const { password: omitPassword, ...userDetails } = user.toObject();
 
-    res.status(200).json({ message: "Login successful",token, user: userDetails });
+    res
+      .status(200)
+      .json({ message: "Login successful", token, user: userDetails });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error" });
@@ -114,7 +118,7 @@ router.get("/user-details", authMiddleware, async (req, res) => {
       address: user.address,
       mobileNumber: user.mobileNumber,
       image: user.image,
-      cart:user.cart,
+      cart: user.cart,
       paymentHistory: user.paymentDetails,
     };
 

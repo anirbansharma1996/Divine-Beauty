@@ -33,17 +33,20 @@
 .user-details {
   height: 380px;
   padding: 10px;
-  border: 1px solid;
   width: 100%;
   position: sticky;
   top:5.6rem;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+ border-radius: 20px;
+  padding-bottom: 15px;
 }
 .user-details-div{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px;
-
+  padding: 15px;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  border-radius: 10px 
 }
 .cart-card {
   margin: 10px;
@@ -65,13 +68,7 @@
 }
 .edit-cart-button {
   display: flex;
- 
 }
-#hero{
-  height: 350px;
-}
-
-
 
 .order{
   padding: 15px;
@@ -82,13 +79,33 @@
 .portfolio-wrap{
   height: 250px ;
 }
+.perfume-div{
+ display: flex;
+ overflow-x: auto;
+ gap: 10px;
+}
+.perfume-div::-webkit-scrollbar {
+ display: none;
+}
 
+.direction-div{
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  top: -10rem;
+  z-index: 1;
+}
+.direction{
+  background-color: rgba(136, 134, 133, 0.59);
+  border-radius: 100%;
+  color: white;
+}
 
 @media (max-width: 768px) {
   .user-container {
-    height: 300px;
+    height: auto;
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     gap: 10px;
     padding: 10px;
     margin-top: -2rem;
@@ -98,6 +115,14 @@
     width: 240px;
     justify-content: space-between;
   }
+  .user-details {
+    height: auto;
+    padding: 10px;
+    width: 100%;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    border-radius: 20px;
+    position: static;
+  }
   .user-details-div{
     display: flex;
     justify-content: space-between;
@@ -106,7 +131,36 @@
     align-items: center;
     padding: 10px;
   }
+
   .portfolio-wrap{
     height: auto;
+  }
+  .filter-div{
+    display: flex;
+    flex-direction: column;
+    margin-top: 0rem;
+    font-size: small;
+  }
+  .perfume-div{
+    display: flex;
+    flex-wrap: nowrap; 
+    overflow-x: auto;
+    gap: 10px;
+   }
+   .perfume-div .portfolio-item {
+    flex: 0 0 calc(50% - 5px);
+  }
+   .perfume-div::-webkit-scrollbar {
+     display: none;
+   }  
+}
+
+@media (max-width:482px){
+  .direction-div{
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    top: -8rem;
+    z-index: 1;
   }
 }

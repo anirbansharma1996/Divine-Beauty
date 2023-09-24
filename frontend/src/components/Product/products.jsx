@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 import axios from "axios";
 
 export const Products = () => {
+ const [isAdded,setIsAdded] = useState(false)
   const authToken = localStorage.getItem("auth");
   const [originalProducts, setOriginalProducts] = useState([]);
   const [products, setProducts] = useState([]);
@@ -20,7 +21,9 @@ export const Products = () => {
   };
   useEffect(() => {
     fetchProducts();
-  }, []);
+  }, [isAdded]);
+
+
   const handleReset = () => {
     fetchProducts();
   };
@@ -47,15 +50,14 @@ export const Products = () => {
 
   const handleCart = async (el) => {
     if (!authToken) {
-      return alert("You Need to Log in First");
+      return alert("You Need to Login First");
     }
-
     try {
       let response = await axios.post("http://127.0.0.1:8008/v1/cart/add", el, {
         headers: { authorization: authToken },
       });
-      console.log(response.data.message);
       alert(response.data.message);
+      setIsAdded(!isAdded)
     } catch (error) {
       console.log(error.message);
     }
@@ -65,19 +67,12 @@ export const Products = () => {
     <section id="portfolio" className="portfolio" style={{ marginTop: "25px" }}>
       <div className="container">
         <div className="section-title">
-          <h2>Products</h2>
-          <p>
-            Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex
-            aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos
-            quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia
-            fugiat sit in iste officiis commodi quidem hic quas.
-          </p>
           <span style={{ color: "blueviolet" }}>
             {products.length} Products Found
           </span>
         </div>
         <div className="row">
-          <div className="col-lg-12 d-flex justify-content-center">
+          <div className="col-lg-12 d-flex justify-content-center filter-div">
             <ul id="portfolio-flters">
               <p>
                 {" "}
@@ -100,9 +95,9 @@ export const Products = () => {
             </ul>
           </div>
         </div>
-        <div className="row portfolio-container">
+        <div className="row ">
           {products.map((el) => (
-            <div key={el.id} className="col-lg-3 col-md-6 portfolio-item">
+            <div key={el.id} className="col-lg-3 col-md-6 col-sm-6  portfolio-item">
               <div className="portfolio-wrap" >
                 <img  src={el.image} className="img-fluid" alt={el.desc} />
                 <div className="portfolio-info">

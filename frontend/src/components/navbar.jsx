@@ -1,8 +1,10 @@
 import React from "react";
 import { useNavigate } from "react-router";
 import jwt_decode from "jwt-decode";
+import { useCart } from "./Context/cartContext";
 
 export const Navbar = () => {
+  const { cart } = useCart();
   const authToken = localStorage.getItem("auth") || false;
   var decoded = "";
   if (authToken) {
@@ -33,12 +35,16 @@ export const Navbar = () => {
                   Membership
                 </a>
               </li>
-             {authToken && <li>
-                <a className="nav-link scrollto" href="/cart">
-                  Cart
-                </a>
-              </li>
-              }
+              {authToken && (
+                <li>
+                  <a className="nav-link scrollto" href="/cart">
+                    Cart
+                    <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                      {cart && cart?.length}
+                    </span>
+                  </a>
+                </li>
+              )}
               {!authToken ? (
                 <li>
                   <a className="getstarted scrollto" href="/sign-up">
@@ -92,11 +98,16 @@ export const Navbar = () => {
                       Membership
                     </a>
                   </li>
-                  {authToken && <li data-bs-dismiss="offcanvas">
-                    <a className="nav-link scrollto" href="/cart">
-                      Cart
-                    </a>
-                  </li>}
+                  {authToken && (
+                    <li data-bs-dismiss="offcanvas">
+                      <a className="nav-link scrollto" href="/cart">
+                        Cart
+                        <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                          {cart.length}
+                        </span>
+                      </a>
+                    </li>
+                  )}
                   {!authToken ? (
                     <li data-bs-dismiss="offcanvas">
                       <a

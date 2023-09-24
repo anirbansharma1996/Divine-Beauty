@@ -8,11 +8,12 @@ export const Signup = () => {
     name: "",
     email: "",
     address: "",
+    gender:"",
     mobileNumber: "",
-    image: "",
     password: "",
   });
   const navigate = useNavigate();
+
   const postData = async (user) => {
     try {
       const response = await axios.post(
@@ -42,11 +43,11 @@ export const Signup = () => {
       email: "",
       address: "",
       mobileNumber: "",
-      image: "",
+      gender:"",
       password: "",
     });
   };
-
+  console.log(userData);
   return (
     <div className="container signup">
       <div className="card mb-3 " style={{ marginTop: "6.5rem" }}>
@@ -84,6 +85,53 @@ export const Signup = () => {
                     onChange={handleInput}
                   />
                 </div>
+                
+                <div className="col-12 d-flex form-control" style={{width:"97%",margin:"auto" ,marginTop:"10px",justifyContent:"space-between",alignItems:"center"}}>
+                  <label className="form-label">Gender</label>
+                  <div>
+                    <label className="form-check-label" htmlFor="male">
+                      <input
+                        type="radio"
+                        className="form-check-input"
+                        id="male"
+                        name="gender"
+                        value="male"
+                        checked={userData.gender === "male"}
+                        onChange={handleInput}
+                      />
+                     {" "} Male
+                    </label>
+                  </div>
+                  <div>
+                    <label className="form-check-label" htmlFor="female">
+                      <input
+                        type="radio"
+                        className="form-check-input"
+                        id="female"
+                        name="gender"
+                        value="female"
+                        checked={userData.gender === "female"}
+                        onChange={handleInput}
+                      />
+                      {" "}Female
+                    </label>
+                  </div>
+                  <div>
+                    <label className="form-check-label" htmlFor="other">
+                      <input
+                        type="radio"
+                        className="form-check-input"
+                        id="other"
+                        name="gender"
+                        value="other"
+                        checked={userData.gender === "other"}
+                        onChange={handleInput}
+                      />
+                     {" "} Other
+                    </label>
+                  </div>
+                </div>
+
                 <div className="col-12">
                   <label htmlFor="inputAddress" className="form-label">
                     Address
@@ -146,7 +194,6 @@ export const Signup = () => {
                   </button>
                 </div>
               </form>
-              
             </div>
           </div>
           <div className="col-md-4 " style={{ marginTop: "1rem" }}>
@@ -154,7 +201,12 @@ export const Signup = () => {
               style={{ marginBottom: "1rem" }}
               className="d-flex justify-content-center"
             >
-               <p>Already Signed Up ? <span><a href="/log-in">Log In</a>{" "}here.</span></p>
+              <p>
+                Already Signed Up ?{" "}
+                <span>
+                  <a href="/log-in">Log In</a> here.
+                </span>
+              </p>
             </div>
             <img
               src="https://img.freepik.com/free-vector/spa-template-design_23-2150708781.jpg"

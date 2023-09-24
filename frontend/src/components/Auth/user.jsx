@@ -14,7 +14,10 @@ export const UserData = () => {
   const authToken = localStorage.getItem("auth");
   const [isPayform, setIsPayment] = useState(false);
   const [user, setUser] = useState([]);
- 
+  const [promo, setPromo] = useState("");
+  const [total, setTotal] = useState(0);
+  const [isApplied, setIsApplied] = useState(false);
+
   const getUser = async () => {
     try {
       const res = await axios.get("http://127.0.0.1:8008/v1/user-details", {
@@ -34,9 +37,9 @@ export const UserData = () => {
     localStorage.removeItem("auth");
     localStorage.removeItem("Total");
     localStorage.removeItem("product");
-    window.location.reload();
     setTimeout(() => {
       navigate("/log-in");
+      window.location.reload();
     }, 1200);
   };
 
@@ -44,11 +47,26 @@ export const UserData = () => {
     if (!authToken) {
       navigate("/log-in");
     } else {
-      if (cart.length!==0) {
+      if (cart.length !== 0) {
         setIsPayment(true);
       } else {
         alert("Add something to your Cart first");
       }
+    }
+  };
+
+  const handleInput = (e) => {
+    console.log(e.target.value);
+    setPromo(e.target.value);
+  };
+  const handlePromo = () => {
+    if (promo === "") {
+      alert("no promocode applied");
+    } else if (promo === "new20") {
+      setTotal(Math.ceil(bill - (bill * 20) / 100));
+      setIsApplied(true);
+    } else {
+      alert("invalid code");
     }
   };
 
@@ -118,10 +136,17 @@ export const UserData = () => {
           >
             <input
               type="text"
-              placeholder=" apply promo code"
+              placeholder=" apply promocode e.g. 'new20 '"
               className="form-control"
+              onChange={handleInput}
             />
-            <button className="btn btn-success">apply</button>
+            <button
+              disabled={isApplied}
+              onClick={handlePromo}
+              className="btn btn-success"
+            >
+              apply
+            </button>
           </div>
           <div
             style={{
@@ -131,7 +156,11 @@ export const UserData = () => {
             }}
           >
             <h5>Amount</h5>
-            <p>₹ {bill}/-</p>
+            <p>
+              {" "}
+              {isApplied && <s style={{ color: "grey" }}> ₹{bill}</s>} ₹{" "}
+              {total || bill} /-
+            </p>
           </div>
           <div
             style={{
@@ -141,8 +170,8 @@ export const UserData = () => {
               marginTop: "-1.5rem",
             }}
           >
-            <h6 style={{ color: "GrayText" }}>GST</h6>
-            <p>₹ {(bill * 18) / 100}/-</p>
+            <h6 style={{ color: "GrayText" }}>Tax</h6>
+            <p>₹ {(isApplied && Math.ceil((total * 18) / 100)) || Math.ceil((bill * 18) / 100)}/-</p>
           </div>
           <hr style={{ marginTop: "-0.7rem" }} />
           <div
@@ -154,11 +183,16 @@ export const UserData = () => {
             }}
           >
             <h5 style={{ color: "GrayText" }}>Total</h5>
-            <p>₹ {bill + (bill * 18) / 100}/-</p>
+            <p style={{ fontSize: "20px", fontWeight: "700" }}>
+              ₹{" "}
+              {(isApplied && Math.ceil(total + (total * 18) / 100)) ||
+                Math.ceil(bill + (bill * 18) / 100)}
+              /-
+            </p>
           </div>
 
-          {cart.length !==0 &&isPayform ? (
-            <Payment props={user} />
+          {cart.length !== 0 && isPayform ? (
+            <Payment props={user} totalBill={total} isApplied={isApplied} />
           ) : (
             <button
               onClick={handleCheckOut}
@@ -174,21 +208,21 @@ export const UserData = () => {
   );
 };
 
-export const Payment = ({ props }) => {
+export const Payment = ({ props, totalBill, isApplied }) => {
   const navigate = useNavigate();
   const { bill } = useBill();
   const { cart } = useCart();
-
   const authToken = localStorage.getItem("auth");
   const decoded = jwt_decode(authToken);
 
   const total = Math.ceil(bill + (bill * 18) / 100);
+  const newTotal = Math.ceil(totalBill + (totalBill * 18) / 100);
   const makePayment = async () => {
     console.log("ok");
     try {
       const res = await axios.post(
         "http://127.0.0.1:8008/v1/payment",
-        { total: total, token: decoded, items: cart },
+        { total: newTotal || total, token: decoded, items: cart },
         {
           headers: { Authorization: authToken },
         }
@@ -209,7 +243,7 @@ export const Payment = ({ props }) => {
       stripeKey="pk_test_51IpCbmSDFH7JnKZtGOHgv4OPFIgfL6qt5wiulTxTbrU0sI7PHGZkHFz08Cazv7bg1U7UijviNIuumD65xtUtGq6Q00hvnlDpnz"
       token={makePayment}
       name={props.name}
-      amount={(bill + (bill * 18) / 100) * 100}
+      amount={(isApplied && newTotal * 100) || (bill + (bill * 18) / 100) * 100}
       currency="INR"
       image={props.image}
       shippingAddress

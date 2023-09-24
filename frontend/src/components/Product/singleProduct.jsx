@@ -37,7 +37,7 @@ export const SingleProduct = () => {
       style={{ maxWidth: "90%", margin: "auto", marginTop: "6rem" }}
     >
       <div className="row g-0">
-        <div className="col-md-4">
+        <div className="col-md-4 d-flex ">
           <img src={prod.image} className="img-fluid rounded-start" alt="..." />
         </div>
         <div className="col-md-8">

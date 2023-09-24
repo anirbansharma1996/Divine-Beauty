@@ -13,7 +13,7 @@ const paymentDetailsSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  cart:{}
+  cart: {},
 });
 const cartItemSchema = new mongoose.Schema({
   productId: {
@@ -39,6 +39,10 @@ const userSchema = new mongoose.Schema({
     unique: true,
   },
   address: {
+    type: String,
+    required: true,
+  },
+  gender: {
     type: String,
     required: true,
   },

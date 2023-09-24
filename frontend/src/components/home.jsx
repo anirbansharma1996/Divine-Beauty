@@ -4,15 +4,17 @@ import { Clients } from "./clients";
 import { Count } from "./count";
 import { Contact } from "./contact";
 import { Faq } from "./faq";
-import { Products } from "./Product/products";
+import { HeroProduct } from "./Product/heroProduct";
+
 
 export const Home = () => {
+
   return (
     <>
       <Hero />
       <main id="main">
         <Clients />
-        <Products />
+        <HeroProduct/>
         <Count />
         <Faq />
         <Contact />
