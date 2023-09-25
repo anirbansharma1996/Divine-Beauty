@@ -2,7 +2,7 @@
 
 # DivineBeauty
 
-![Divine Beauty Logo](https://image-links.vercel.app/Images/divine.jpg)
+![Divine Beauty Logo](https://image-links.vercel.app/Images/divine2.jpg)
 
 DivineBeauty is a web application dedicated to enhancing your beauty care routine. Discover the latest beauty trends, browse a wide range of skincare and cosmetic products, and connect with a community of beauty enthusiasts.
 
