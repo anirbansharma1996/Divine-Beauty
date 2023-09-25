@@ -2,6 +2,8 @@
 
 # DivineBeauty
 
+![Divine Beauty Logo](https://image-links.vercel.app/Images/divine.jpg)
+
 DivineBeauty is a web application dedicated to enhancing your beauty care routine. Discover the latest beauty trends, browse a wide range of skincare and cosmetic products, and connect with a community of beauty enthusiasts.
 
 ## Table of Contents
@@ -11,7 +13,6 @@ DivineBeauty is a web application dedicated to enhancing your beauty care routin
 - [Getting Started](#getting-started)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Contributing](#contributing)
 - [License](#license)
 
 ## Features
@@ -73,10 +74,6 @@ To get started with DivineBeauty on your local machine, follow these instruction
    ```
 
 3. Open your browser and go to `http://localhost:3000` to access the DivineBeauty application.
-
-### Contributing
-
-We welcome contributions from the community. If you'd like to contribute to DivineBeauty, please follow our [Contribution Guidelines](CONTRIBUTING.md).
 
 ### License
 

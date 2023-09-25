@@ -40,10 +40,15 @@ This project is licensed under the [MIT License](https://opensource.org/licenses
 We would like to acknowledge the following open-source projects and libraries that made this template possible:
 
 - [Express.js](https://expressjs.com)
-- [Sequelize](https://sequelize.org)
-- [Passport.js](http://www.passportjs.org)
-- [Winston](https://github.com/winstonjs/winston)
-- [Jest](https://jestjs.io)
+- bcrypt : "^5.1.0",
+- cors : "^2.8.5",
+- dotenv : "^16.3.1",
+- jsonwebtoken": "^9.0.1",
+- mongoose : "^7.3.4",
+- multer : "^1.4.5-lts.1",
+- nodemon : "^3.0.1",
+- stripe : "^12.12.0",
+- uuid : "^9.0.0"
 
 Their contributions to the open-source community are greatly appreciated.
 
