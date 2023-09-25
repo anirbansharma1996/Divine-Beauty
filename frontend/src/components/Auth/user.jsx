@@ -123,7 +123,7 @@ export const UserData = () => {
           </p>
           <p style={{ marginTop: "-1rem" }}>
             {" "}
-            <b>Contact :</b> {user.mobileNumber}
+            <b>Contact :</b> +91 {user.mobileNumber}
           </p>
           <hr />
           <div
