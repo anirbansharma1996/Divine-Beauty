@@ -141,7 +141,7 @@ export const UserData = () => {
               onChange={handleInput}
             />
             <button
-              disabled={isApplied}
+              disabled={isApplied || (cart.length == 0)}
               onClick={handlePromo}
               className="btn btn-success"
             >
