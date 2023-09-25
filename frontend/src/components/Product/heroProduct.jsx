@@ -7,10 +7,10 @@ import { Woman } from "./Items/woman";
 export const HeroProduct = () => {
   return (
     <section id="portfolio" className="portfolio">
-    Woman/>  <Best />
+     <Best />
       <Man/>
       <Combo/>
-      <
+      < Woman/>
     </section>
   );
 };
