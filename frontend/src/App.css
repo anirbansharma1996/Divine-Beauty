@@ -20,10 +20,18 @@
 }
 .filter{
   position: sticky;
-  top: 5rem;
+  top: 4.9rem;
+  z-index: 3;
+  background-color: white;
+  padding-top: 10px;
+}
+.search{
+  position: sticky;
+  top: 7.7rem;
   z-index: 2;
   background-color: white;
 }
+
 .offcanvas-body ul{
   margin-bottom: -10px;
   border-bottom: 1px solid;
@@ -189,5 +197,11 @@
     position: relative;
     top: -8rem;
     z-index: 1;
+  }
+  .search{
+    position: sticky;
+    top: 7.7rem;
+    z-index: 2;
+    background-color: white;
   }
 }

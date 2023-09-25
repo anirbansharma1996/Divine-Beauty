@@ -11,7 +11,7 @@ export const Footer = () => {
                     <h3>DIVINE BEAUTY</h3>
                     <p>
                       Jalpaiguri, West Bengal <br />
-                      JAL 735101, WB<br /><br />
+                      JAL , 735101, WB<br /><br />
                       <strong>Phone:</strong> +91 9083527130<br />
                       <strong>Email:</strong> divinebeauty@example.com<br />
                     </p>

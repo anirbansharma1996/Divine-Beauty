@@ -44,6 +44,13 @@ export const Products = () => {
       originalProducts.filter((el) => el.title.toLowerCase().includes(category))
     );
   };
+  const handleSearch=(input)=>{
+     setTimeout(()=>{
+      setProducts(
+        originalProducts.filter((el) => el.title.toLowerCase().includes(input))
+      );
+     },500)
+  }
 
   const handleStore = (data) => {
     localStorage.setItem("product", JSON.stringify(data));
@@ -51,6 +58,8 @@ export const Products = () => {
       navigate(`/product/${data._id}`);
     }, 1200);
   };
+
+ 
 
   const handleCart = async (el) => {
     if (!authToken) {
@@ -70,23 +79,24 @@ export const Products = () => {
   return (
     <section id="portfolio" className="portfolio" style={{ marginTop: "25px" }}>
       <div className="container">
-        <div className="section-title d-flex filter" style={{justifyContent:"space-between"}} >
-          {/* --------------------------- */}
-          <div >
-            <div className="d-flex" style={{alignItems:"center"}}>
-
-            <button
-              className="btn btn-info"
-              type="button"
-              data-bs-toggle="offcanvas"
-              data-bs-target="#offcanvasLeft"
-              aria-controls="offcanvasLeft"
-            >
-             Apply Filters
-            </button>
-            <ul id="portfolio-filter-all">
-            <li onClick={handleReset}>All Products</li>
-            </ul>
+        <div
+          className="section-title d-flex filter"
+          style={{ justifyContent: "space-between" }}
+        >
+          <div>
+            <div className="d-flex" style={{ alignItems: "center" }}>
+              <button
+                className="btn btn-info"
+                type="button"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasLeft"
+                aria-controls="offcanvasLeft"
+              >
+              Filters
+              </button>
+              <ul id="portfolio-filter-all">
+                <li onClick={handleReset}>All</li>
+              </ul>
             </div>
             <div
               className="offcanvas offcanvas-start"
@@ -102,16 +112,15 @@ export const Products = () => {
                   aria-label="Close"
                   className="btn btn-ghost"
                 ></button>
-              
               </div>
               <div className="offcanvas-body">
                 <div className="col-lg-12 filter-div">
                   <hr />
                   <ul id="portfolio-flters">
-                    <p style={{textAlign:'left'}}>
+                    <p style={{ textAlign: "left" }}>
                       <b>Filter by Price</b>
                     </p>
-                  <hr />
+                    <hr />
                     <li onClick={() => handleRange(0, 350)}>Below ₹350</li>
                     <li onClick={() => handleRange(351, 750)}>₹351 - ₹750</li>
                     <li onClick={() => handleRange(751, 1000)}>₹751 - ₹1000</li>
@@ -119,19 +128,21 @@ export const Products = () => {
                       Above ₹1000
                     </li>
                   </ul>
-              
+
                   <ul id="portfolio-flters">
-                    <p style={{textAlign:'left'}}>
+                    <p style={{ textAlign: "left" }}>
                       <b>Filter by Category</b>
                     </p>
                     <hr />
                     <li onClick={() => handleCategory("perfume")}>Perfume</li>
                     <li onClick={() => handleCategory("combo")}>Combos</li>
-                    <li onClick={() => handleCategory("lotion")}>Lotion & Cream</li>
+                    <li onClick={() => handleCategory("lotion")}>
+                      Lotion & Cream
+                    </li>
                   </ul>
-                 
+
                   <ul id="portfolio-flters">
-                    <p style={{textAlign:'left'}}>
+                    <p style={{ textAlign: "left" }}>
                       <b>Filter by Gender</b>
                     </p>
                     <hr />
@@ -149,17 +160,19 @@ export const Products = () => {
                   data-bs-dismiss="offcanvas"
                   aria-label="Close"
                 ></button>
-              
               </div>
             </div>
           </div>
-
-          {/* ------------------------------ */}
           <span style={{ color: "blueviolet" }}>
             {products.length} Products Found
           </span>
         </div>
-        <div className="row"></div>
+        <div style={{ padding: "10px" }} className="search">
+          <label>
+            <b>Search Product Here</b>
+          </label>
+          <input onChange={(e)=>handleSearch(e.target.value)} placeholder="search products here..." type="text" className="form-control" />
+        </div>
         <div className="row ">
           {products.map((el) => (
             <div
@@ -169,13 +182,12 @@ export const Products = () => {
               <div className="portfolio-wrap">
                 <img src={el.image} className="img-fluid" alt={el.desc} />
                 <div className="portfolio-info">
-                  {/* <p>{el.desc}</p> */}
-                  <h4>{el.title}</h4>
                   <p>{el.offer}</p>
+                  <h4>{el.title}</h4>
                   <h5 style={{ color: "white" }}>
                     Price : <s>₹ {el.original}</s> | ₹{el.price}/-
                   </h5>
-                  {/* <h6 style={{ color: "white" }}>Rating : {el.rating}</h6> */}
+                  <h6 style={{ color: "white" }}>Rating : {el.rating}</h6>
                   <div className="portfolio-links">
                     <button
                       className="btn btn-ghost"
