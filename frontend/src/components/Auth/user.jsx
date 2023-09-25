@@ -61,12 +61,12 @@ export const UserData = () => {
   };
   const handlePromo = () => {
     if (promo === "") {
-      alert("no promocode applied");
+      alert("No promocode applied");
     } else if (promo === "new20") {
       setTotal(Math.ceil(bill - (bill * 20) / 100));
       setIsApplied(true);
     } else {
-      alert("invalid code");
+      alert("invalid promocode");
     }
   };
 
