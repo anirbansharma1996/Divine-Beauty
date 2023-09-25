@@ -24,7 +24,7 @@ export const Order = () => {
 
   return (
     <>
-      {orders.paymentHistory.length === 0 ? (
+      {orders.paymentHistory?.length === 0 ? (
         <div 
         className="container"
           style={{ marginTop: "3.5rem" }}
@@ -45,9 +45,10 @@ export const Order = () => {
             {orders.paymentHistory?.map((el) => (
               <div key={el._id} className="order">
                 <h6>Order ID: {el._id}</h6>
+                <hr />
                 <p style={{ marginTop: "-7px" }}>
                   {" "}
-                  <i class="bi bi-cash-stack"></i> : <b>₹ {el.amount} /-</b>{" "}
+                  <i class="bi bi-cash-stack"></i> Total Amount : <b>₹ {el.amount} /-</b>{" "}
                 </p>
                 <p style={{ marginTop: "-16px" }}>
                   {" "}
@@ -58,6 +59,7 @@ export const Order = () => {
                   <i class="bi bi-phone-vibrate"></i> :{" "}
                   <b> +91 {orders.mobileNumber}</b>
                 </p>
+                <hr />
                 <h6>ordered Items :</h6>
                 <ul style={{ listStyleType: "none" }}>
                   {el.cart.map((cartItem, index) => (

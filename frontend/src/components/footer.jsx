@@ -14,7 +14,7 @@ export const Footer = () => {
                     src="https://png.pngtree.com/png-vector/20220706/ourlarge/pngtree-beauty-logo-png-image_5687724.png"
                     alt="logo"
                   />
-                  {" "}DIVINE BEAUTY
+                  {" "}ᗪIᐯIᑎE ᗷEᗩᑌTY
                 </h3>
                 <p>
                   Jalpaiguri, West Bengal <br />
