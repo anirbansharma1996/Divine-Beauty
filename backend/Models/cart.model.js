@@ -1,7 +1,5 @@
-// cart.js
 const mongoose = require('mongoose');
 const Product = require("./product.model.js")
-
 const cartSchema = new mongoose.Schema({
   userId: {
     type: mongoose.Schema.Types.ObjectId,

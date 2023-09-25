@@ -12,7 +12,7 @@ const reviews = [
     id: 2,
     rating: 4,
     reviewText: "Good product. Could be better.",
-    author: "salman",
+    author: "Salman",
   },
 ];
 
