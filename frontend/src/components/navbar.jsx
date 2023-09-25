@@ -16,7 +16,8 @@ export const Navbar = () => {
       <header id="header" className="fixed-top d-flex align-items-center">
         <div className="container d-flex align-items-center justify-content-between">
           <h1 className="logo">
-            <a href="/">Divine Beauty</a>
+            <img style={{borderRadius:"100%"}} src="https://png.pngtree.com/png-vector/20220706/ourlarge/pngtree-beauty-logo-png-image_5687724.png" alt="logo" />
+           {" "} <a href="/">Divine Beauty</a>
           </h1>
           <nav id="navbar" className="navbar">
             <ul>
