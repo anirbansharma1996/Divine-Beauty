@@ -6,11 +6,11 @@ import { useCart } from "../Context/cartContext";
 
 
 export const CartCard = () => {
-  const [cart, setCart] = useState([]);
+  const [cartItem, setCart] = useState([]);
   const authToken = localStorage.getItem("auth") || "";
   const [isDeleted, setIsDeleted] = useState(false);
   const { updateBill } = useBill();
-  const { updateCart}=useCart()
+  const { cart , updateCart}=useCart()
 
 
   useEffect(() => {
@@ -71,8 +71,15 @@ useEffect(() => {
   };
  
   return (
-    <div className="" >
-      {cart.map((el) => (
+    <>
+    {
+   cart.length === 0 ? 
+    <div>
+      <img  className="image-fuild w-100" src="https://cdni.iconscout.com/illustration/premium/thumb/empty-cart-2130356-1800917.png" alt="0-item" />
+    </div>
+   : 
+    <div>
+      {cartItem.map((el) => (
         <div className="cart-card">
           <div>
             <img src={el.productId.image} alt={el.productId._id} />
@@ -110,5 +117,7 @@ useEffect(() => {
         </div>
       ))}
     </div>
+}
+  </>
   );
 };

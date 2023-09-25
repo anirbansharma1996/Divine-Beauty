@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router";
 
-export const Perfume = () => {
+export const Best = () => {
     const authToken = localStorage.getItem("auth");
     const [products, setProducts] = useState([]);
     const perfumeDivRef = useRef(null);

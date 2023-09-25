@@ -1,5 +1,5 @@
 import React from "react";
-import { Perfume } from "./Items/perfume";
+import { Best } from "./Items/best";
 import { Combo } from "./Items/combo";
 import { Man } from "./Items/man";
 import { Woman } from "./Items/woman";
@@ -7,7 +7,7 @@ import { Woman } from "./Items/woman";
 export const HeroProduct = () => {
   return (
     <section id="portfolio" className="portfolio">
-      <Perfume />
+      <Best />
       <Man/>
       <Combo/>
       <Woman/>

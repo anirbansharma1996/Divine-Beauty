@@ -3,7 +3,7 @@ import { useNavigate } from "react-router";
 import axios from "axios";
 
 export const Products = () => {
- const [isAdded,setIsAdded] = useState(false)
+  const [isAdded, setIsAdded] = useState(false);
   const authToken = localStorage.getItem("auth");
   const [originalProducts, setOriginalProducts] = useState([]);
   const [products, setProducts] = useState([]);
@@ -23,7 +23,6 @@ export const Products = () => {
     fetchProducts();
   }, [isAdded]);
 
-
   const handleReset = () => {
     fetchProducts();
   };
@@ -38,6 +37,11 @@ export const Products = () => {
   const handleGender = (gen) => {
     setProducts(
       originalProducts.filter((el) => el.title.toLowerCase().includes(gen))
+    );
+  };
+  const handleCategory = (category) => {
+    setProducts(
+      originalProducts.filter((el) => el.title.toLowerCase().includes(category))
     );
   };
 
@@ -57,7 +61,7 @@ export const Products = () => {
         headers: { authorization: authToken },
       });
       alert(response.data.message);
-      setIsAdded(!isAdded)
+      setIsAdded(!isAdded);
     } catch (error) {
       console.log(error.message);
     }
@@ -66,40 +70,104 @@ export const Products = () => {
   return (
     <section id="portfolio" className="portfolio" style={{ marginTop: "25px" }}>
       <div className="container">
-        <div className="section-title">
+        <div className="section-title d-flex filter" style={{justifyContent:"space-between"}} >
+          {/* --------------------------- */}
+          <div >
+            <div className="d-flex" style={{alignItems:"center"}}>
+
+            <button
+              className="btn btn-info"
+              type="button"
+              data-bs-toggle="offcanvas"
+              data-bs-target="#offcanvasLeft"
+              aria-controls="offcanvasLeft"
+            >
+             Apply Filters
+            </button>
+            <ul id="portfolio-filter-all">
+            <li onClick={handleReset}>All Products</li>
+            </ul>
+            </div>
+            <div
+              className="offcanvas offcanvas-start"
+              tabIndex="-1"
+              id="offcanvasLeft"
+              aria-labelledby="offcanvasLeftLabel"
+            >
+              <div className="offcanvas-header">
+                <h5 id="offcanvasLeftLabel"></h5>
+                <button
+                  type="button"
+                  data-bs-dismiss="offcanvas"
+                  aria-label="Close"
+                  className="btn btn-ghost"
+                ></button>
+              
+              </div>
+              <div className="offcanvas-body">
+                <div className="col-lg-12 filter-div">
+                  <hr />
+                  <ul id="portfolio-flters">
+                    <p style={{textAlign:'left'}}>
+                      <b>Filter by Price</b>
+                    </p>
+                  <hr />
+                    <li onClick={() => handleRange(0, 350)}>Below ₹350</li>
+                    <li onClick={() => handleRange(351, 750)}>₹351 - ₹750</li>
+                    <li onClick={() => handleRange(751, 1000)}>₹751 - ₹1000</li>
+                    <li onClick={() => handleRange(1001, Infinity)}>
+                      Above ₹1000
+                    </li>
+                  </ul>
+              
+                  <ul id="portfolio-flters">
+                    <p style={{textAlign:'left'}}>
+                      <b>Filter by Category</b>
+                    </p>
+                    <hr />
+                    <li onClick={() => handleCategory("perfume")}>Perfume</li>
+                    <li onClick={() => handleCategory("combo")}>Combos</li>
+                    <li onClick={() => handleCategory("lotion")}>Lotion & Cream</li>
+                  </ul>
+                 
+                  <ul id="portfolio-flters">
+                    <p style={{textAlign:'left'}}>
+                      <b>Filter by Gender</b>
+                    </p>
+                    <hr />
+                    <li onClick={() => handleGender("man")}>MEN</li>
+                    <li onClick={() => handleGender("woman")}>WOMEN</li>
+                    <li onClick={() => handleGender("unisex")}>UNISEX</li>
+                  </ul>
+                </div>
+              </div>
+              <div className="offcanvas-header">
+                <h5 id="offcanvasLeftLabel"></h5>
+                <button
+                  type="button"
+                  className="btn-close text-reset"
+                  data-bs-dismiss="offcanvas"
+                  aria-label="Close"
+                ></button>
+              
+              </div>
+            </div>
+          </div>
+
+          {/* ------------------------------ */}
           <span style={{ color: "blueviolet" }}>
             {products.length} Products Found
           </span>
         </div>
-        <div className="row">
-          <div className="col-lg-12 d-flex justify-content-center filter-div">
-            <ul id="portfolio-flters">
-              <p>
-                {" "}
-                <b> filter by Price </b>{" "}
-              </p>
-              <li onClick={handleReset}>All</li>
-              <li onClick={() => handleRange(0, 350)}>Below ₹350</li>
-              <li onClick={() => handleRange(351, 750)}>₹351 - ₹750</li>
-              <li onClick={() => handleRange(751, 1000)}>₹751 - ₹1000</li>
-              <li onClick={() => handleRange(1001, Infinity)}>Above ₹1000</li>
-            </ul>
-            <ul id="portfolio-flters">
-              <p>
-                {" "}
-                <b> filter by Gender </b>{" "}
-              </p>
-              <li onClick={() => handleGender("man")}>MEN</li>
-              <li onClick={() => handleGender("woman")}>WOMEN</li>
-              <li onClick={() => handleGender("unisex")}>UNISEX</li>
-            </ul>
-          </div>
-        </div>
+        <div className="row"></div>
         <div className="row ">
           {products.map((el) => (
-            <div key={el.id} className="col-lg-3 col-md-6 col-sm-6  portfolio-item">
-              <div className="portfolio-wrap" >
-                <img  src={el.image} className="img-fluid" alt={el.desc} />
+            <div
+              key={el.id}
+              className="col-lg-3 col-md-6 col-sm-6  portfolio-item"
+            >
+              <div className="portfolio-wrap">
+                <img src={el.image} className="img-fluid" alt={el.desc} />
                 <div className="portfolio-info">
                   {/* <p>{el.desc}</p> */}
                   <h4>{el.title}</h4>
