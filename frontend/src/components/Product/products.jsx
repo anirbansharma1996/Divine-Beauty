@@ -49,7 +49,7 @@ export const Products = () => {
   const handleSearch = (input) => {
     setTimeout(() => {
       setProducts(
-        originalProducts.filter((el) => el.title.toLowerCase().includes(input))
+        originalProducts.filter((el) => el.title.toLowerCase().includes(input.toLowerCase()))
       );
     }, 500);
   };

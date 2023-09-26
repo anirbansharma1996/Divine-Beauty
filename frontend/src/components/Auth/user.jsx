@@ -139,7 +139,7 @@ export const UserData = () => {
           >
             <input
               type="text"
-              placeholder=" apply promocode e.g. 'new20 '"
+              placeholder="promocode e.g.'new20'"
               className="form-control"
               onChange={handleInput}
             />
@@ -229,7 +229,7 @@ export const Payment = ({ props, totalBill, isApplied }) => {
     console.log("ok");
     try {
       const res = await axios.post(
-        "URL : https://divine-beauty-backend-node.onrender.com/v1/payment",
+        "https://divine-beauty-backend-node.onrender.com/v1/payment",
         { total: newTotal || total, token: decoded, items: cart },
         {
           headers: { Authorization: authToken },

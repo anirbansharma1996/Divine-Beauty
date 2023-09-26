@@ -204,4 +204,46 @@
     z-index: 2;
     background-color: white;
   }
+  .cart-card {
+    margin: 10px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    border-radius: 10px;
+    padding: 9px;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    gap: 10px;
+    width: 90%;
+  }
+  .edit-cart {
+    display: flex;
+    width: 93%;
+    margin: auto;
+    justify-content: space-between;
+  }
+  .cart-card img {
+    width: 100%;
+    height: 230px;
+    border-radius: 5px 5px 0px 0px;
+  }
+  .portfolio-wrap-2{
+    height: 180px;
+  }
+  .portfolio-wrap-2 img{
+    height: 180px;
+  }
+ .portfolio-wrap-2 .portfolio-links{
+    display: flex;
+    margin-left: -1.5rem;
+  }
+  .portfolio-wrap-2 .portfolio-info p{
+    display: none;
+  }
+  .portfolio-wrap-2 .portfolio-info h4{
+    font-size: xx-small;
+  }
+  .portfolio-wrap-2 .portfolio-info h5{
+    font-size: 10px;
+    /* display: none; */
+  }
 }
