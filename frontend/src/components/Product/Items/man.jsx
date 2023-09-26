@@ -76,7 +76,7 @@ export const Man = () => {
             key={el.id}
             className="col-lg-3 col-md-6 col-sm-6  portfolio-item"
           >
-            <div className="portfolio-wrap">
+            <div className="portfolio-wrap portfolio-wrap-2">
               <img src={el.image} className="img-fluid" alt={el.desc} />
               <div className="portfolio-info">
                 <h4>{el.title}</h4>
