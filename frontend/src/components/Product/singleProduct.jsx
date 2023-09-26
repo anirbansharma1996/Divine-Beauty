@@ -21,6 +21,9 @@ export const SingleProduct = () => {
   const prod = JSON.parse(localStorage.getItem("product"));
   //console.log(prod);
   const handleCart = async (el) => {
+    if (!authToken) {
+      return alert("You Need to Login First");
+    }
     try {
       let response = await axios.post(
         "https://divine-beauty-backend-node.onrender.com/v1/cart/add",
