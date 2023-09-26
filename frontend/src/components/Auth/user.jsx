@@ -20,9 +20,12 @@ export const UserData = () => {
 
   const getUser = async () => {
     try {
-      const res = await axios.get("http://127.0.0.1:8008/v1/user-details", {
-        headers: { Authorization: authToken },
-      });
+      const res = await axios.get(
+        "https://divine-beauty-backend-node.onrender.com/v1/user-details",
+        {
+          headers: { Authorization: authToken },
+        }
+      );
       setUser((prev) => res.data.user);
     } catch (error) {
       console.log(error.message);
@@ -141,7 +144,7 @@ export const UserData = () => {
               onChange={handleInput}
             />
             <button
-              disabled={isApplied || (cart.length == 0)}
+              disabled={isApplied || cart.length == 0}
               onClick={handlePromo}
               className="btn btn-success"
             >
@@ -171,7 +174,12 @@ export const UserData = () => {
             }}
           >
             <h6 style={{ color: "GrayText" }}>Tax</h6>
-            <p>₹ {(isApplied && Math.ceil((total * 18) / 100)) || Math.ceil((bill * 18) / 100)}/-</p>
+            <p>
+              ₹{" "}
+              {(isApplied && Math.ceil((total * 18) / 100)) ||
+                Math.ceil((bill * 18) / 100)}
+              /-
+            </p>
           </div>
           <hr style={{ marginTop: "-0.7rem" }} />
           <div
@@ -221,7 +229,7 @@ export const Payment = ({ props, totalBill, isApplied }) => {
     console.log("ok");
     try {
       const res = await axios.post(
-        "http://127.0.0.1:8008/v1/payment",
+        "URL : https://divine-beauty-backend-node.onrender.com/v1/payment",
         { total: newTotal || total, token: decoded, items: cart },
         {
           headers: { Authorization: authToken },

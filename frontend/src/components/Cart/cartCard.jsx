@@ -1,38 +1,38 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import {useBill } from '../Context/billContext'
+import { useBill } from "../Context/billContext";
 import { useCart } from "../Context/cartContext";
-
-
 
 export const CartCard = () => {
   const [cartItem, setCart] = useState([]);
   const authToken = localStorage.getItem("auth") || "";
   const [isDeleted, setIsDeleted] = useState(false);
   const { updateBill } = useBill();
-  const { cart , updateCart}=useCart()
-
+  const { cart, updateCart } = useCart();
 
   useEffect(() => {
     handleGetCart();
-}, [isDeleted]);
+  }, [isDeleted]);
 
-useEffect(() => {
-  const calculatedTotal = cart.reduce(
-    (acc, item) => acc + item.productId.price * item.quantity,
-    0
-  );
-  updateBill(calculatedTotal)
-  localStorage.setItem('Total',calculatedTotal)
-}, [cart, isDeleted]);
+  useEffect(() => {
+    const calculatedTotal = cart.reduce(
+      (acc, item) => acc + item.productId.price * item.quantity,
+      0
+    );
+    updateBill(calculatedTotal);
+    localStorage.setItem("Total", calculatedTotal);
+  }, [cart, isDeleted]);
 
   const handleGetCart = async () => {
     try {
-      let response = await axios.get("http://127.0.0.1:8008/v1/cart", {
-        headers: { authorization: authToken },
-      });
+      let response = await axios.get(
+        "https://divine-beauty-backend-node.onrender.com/v1/cart",
+        {
+          headers: { authorization: authToken },
+        }
+      );
       setCart((prev) => response.data.cart);
-      updateCart(response.data.cart)
+      updateCart(response.data.cart);
     } catch (error) {
       console.log(error.message);
     }
@@ -43,7 +43,7 @@ useEffect(() => {
     if (boolean) {
       try {
         await axios.delete(
-          `http://127.0.0.1:8008/v1/cart/remove/${id}`,
+          `https://divine-beauty-backend-node.onrender.com/v1/cart/remove/${id}`,
           {
             headers: { authorization: authToken },
           }
@@ -54,7 +54,7 @@ useEffect(() => {
       }
     }
   };
- 
+
   const handleDec = (id) => {
     setCart((prevCart) =>
       prevCart.map((el) =>
@@ -69,55 +69,58 @@ useEffect(() => {
       )
     );
   };
- 
+
   return (
     <>
-    {
-   cart.length === 0 ? 
-    <div>
-      <img  className="image-fuild w-100" src="https://cdni.iconscout.com/illustration/premium/thumb/empty-cart-2130356-1800917.png" alt="0-item" />
-    </div>
-   : 
-    <div>
-      {cartItem.map((el) => (
-        <div className="cart-card">
-          <div>
-            <img src={el.productId.image} alt={el.productId._id} />
-          </div>
-          <div>
-            <h5>{el.productId.title}</h5>
-            <p style={{ display: "inline" }}>{el.productId.desc}</p>|
-            <span>{el.productId.offer}</span>
-            <h6>Price : ₹{el.productId.price}/-</h6>
-            <div className="edit-cart">
-              <div className="edit-cart-buttons">
-                <button
-                  onClick={() => handleDec(el.productId._id)}
-                  disabled={el.quantity === 1 ? true : false}
-                  className="btn btn-warning"
-                >
-                  -
-                </button>{" "}
-                <span>{el.quantity}</span>{" "}
-                <button
-                  onClick={() => handleInc(el.productId._id)}
-                  className="btn btn-warning"
-                >
-                  +
-                </button>
-              </div>
-              <button
-                onClick={() => handleRemove(el.productId._id)}
-                className="btn btn-warning"
-              >
-                Remove{" "}
-              </button>
-            </div>
-          </div>
+      {cart.length === 0 ? (
+        <div>
+          <img
+            className="image-fuild w-100"
+            src="https://cdni.iconscout.com/illustration/premium/thumb/empty-cart-2130356-1800917.png"
+            alt="0-item"
+          />
         </div>
-      ))}
-    </div>
-}
-  </>
+      ) : (
+        <div>
+          {cartItem.map((el) => (
+            <div className="cart-card">
+              <div>
+                <img src={el.productId.image} alt={el.productId._id} />
+              </div>
+              <div>
+                <h5>{el.productId.title}</h5>
+                <p style={{ display: "inline" }}>{el.productId.desc}</p>|
+                <span>{el.productId.offer}</span>
+                <h6>Price : ₹{el.productId.price}/-</h6>
+                <div className="edit-cart">
+                  <div className="edit-cart-buttons">
+                    <button
+                      onClick={() => handleDec(el.productId._id)}
+                      disabled={el.quantity === 1 ? true : false}
+                      className="btn btn-warning"
+                    >
+                      -
+                    </button>{" "}
+                    <span>{el.quantity}</span>{" "}
+                    <button
+                      onClick={() => handleInc(el.productId._id)}
+                      className="btn btn-warning"
+                    >
+                      +
+                    </button>
+                  </div>
+                  <button
+                    onClick={() => handleRemove(el.productId._id)}
+                    className="btn btn-warning"
+                  >
+                    Remove{" "}
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </>
   );
 };

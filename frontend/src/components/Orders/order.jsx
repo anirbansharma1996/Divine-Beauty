@@ -6,9 +6,12 @@ export const Order = () => {
   const [orders, setOrders] = useState([]);
   const getOrders = async () => {
     try {
-      const res = await axios.get("http://127.0.0.1:8008/v1/user-details", {
-        headers: { Authorization: authToken },
-      });
+      const res = await axios.get(
+        "https://divine-beauty-backend-node.onrender.com/v1/user-details",
+        {
+          headers: { Authorization: authToken },
+        }
+      );
 
       setOrders((prev) => res.data.user);
     } catch (error) {
@@ -20,15 +23,10 @@ export const Order = () => {
     getOrders();
   }, []);
 
-
-
   return (
     <>
       {orders.paymentHistory?.length === 0 ? (
-        <div 
-        className="container"
-          style={{ marginTop: "3.5rem" }}
-        >
+        <div className="container" style={{ marginTop: "3.5rem" }}>
           <img
             className="image-fuild w-100"
             src="https://i.pinimg.com/originals/ae/bc/8c/aebc8c60e30c83f3ab34c978733dab26.png"
@@ -48,7 +46,8 @@ export const Order = () => {
                 <hr />
                 <p style={{ marginTop: "-7px" }}>
                   {" "}
-                  <i class="bi bi-cash-stack"></i> Total Amount : <b>₹ {el.amount} /-</b>{" "}
+                  <i class="bi bi-cash-stack"></i> Total Amount :{" "}
+                  <b>₹ {el.amount} /-</b>{" "}
                 </p>
                 <p style={{ marginTop: "-16px" }}>
                   {" "}

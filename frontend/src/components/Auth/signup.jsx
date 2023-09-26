@@ -8,7 +8,7 @@ export const Signup = () => {
     name: "",
     email: "",
     address: "",
-    gender:"",
+    gender: "",
     mobileNumber: "",
     password: "",
   });
@@ -17,7 +17,7 @@ export const Signup = () => {
   const postData = async (user) => {
     try {
       const response = await axios.post(
-        "http://127.0.0.1:8008/v1/signup",
+        "https://divine-beauty-backend-node.onrender.com/v1/signup",
         user
       );
       alert(response.data.message);
@@ -43,7 +43,7 @@ export const Signup = () => {
       email: "",
       address: "",
       mobileNumber: "",
-      gender:"",
+      gender: "",
       password: "",
     });
   };
@@ -85,8 +85,17 @@ export const Signup = () => {
                     onChange={handleInput}
                   />
                 </div>
-                
-                <div className="col-12 d-flex form-control" style={{width:"97%",margin:"auto" ,marginTop:"10px",justifyContent:"space-between",alignItems:"center"}}>
+
+                <div
+                  className="col-12 d-flex form-control"
+                  style={{
+                    width: "97%",
+                    margin: "auto",
+                    marginTop: "10px",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  }}
+                >
                   <label className="form-label">Gender</label>
                   <div>
                     <label className="form-check-label" htmlFor="male">
@@ -98,8 +107,8 @@ export const Signup = () => {
                         value="male"
                         checked={userData.gender === "male"}
                         onChange={handleInput}
-                      />
-                     {" "} Male
+                      />{" "}
+                      Male
                     </label>
                   </div>
                   <div>
@@ -112,8 +121,8 @@ export const Signup = () => {
                         value="female"
                         checked={userData.gender === "female"}
                         onChange={handleInput}
-                      />
-                      {" "}Female
+                      />{" "}
+                      Female
                     </label>
                   </div>
                   <div>
@@ -126,8 +135,8 @@ export const Signup = () => {
                         value="other"
                         checked={userData.gender === "other"}
                         onChange={handleInput}
-                      />
-                     {" "} Other
+                      />{" "}
+                      Other
                     </label>
                   </div>
                 </div>

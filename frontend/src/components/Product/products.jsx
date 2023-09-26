@@ -10,7 +10,9 @@ export const Products = () => {
   const navigate = useNavigate();
   const fetchProducts = async () => {
     try {
-      let response = await axios.get("http://127.0.0.1:8008/v1/products");
+      let response = await axios.get(
+        "https://divine-beauty-backend-node.onrender.com/v1/products"
+      );
       if (response) {
         setProducts(response.data.products);
         setOriginalProducts(response.data.products);
@@ -44,13 +46,13 @@ export const Products = () => {
       originalProducts.filter((el) => el.title.toLowerCase().includes(category))
     );
   };
-  const handleSearch=(input)=>{
-     setTimeout(()=>{
+  const handleSearch = (input) => {
+    setTimeout(() => {
       setProducts(
         originalProducts.filter((el) => el.title.toLowerCase().includes(input))
       );
-     },500)
-  }
+    }, 500);
+  };
 
   const handleStore = (data) => {
     localStorage.setItem("product", JSON.stringify(data));
@@ -59,16 +61,18 @@ export const Products = () => {
     }, 1200);
   };
 
- 
-
   const handleCart = async (el) => {
     if (!authToken) {
       return alert("You Need to Login First");
     }
     try {
-      let response = await axios.post("http://127.0.0.1:8008/v1/cart/add", el, {
-        headers: { authorization: authToken },
-      });
+      let response = await axios.post(
+        "https://divine-beauty-backend-node.onrender.com/v1/cart/add",
+        el,
+        {
+          headers: { authorization: authToken },
+        }
+      );
       alert(response.data.message);
       setIsAdded(!isAdded);
     } catch (error) {
@@ -92,7 +96,7 @@ export const Products = () => {
                 data-bs-target="#offcanvasLeft"
                 aria-controls="offcanvasLeft"
               >
-              Filters
+                Filters
               </button>
               <ul id="portfolio-filter-all">
                 <li onClick={handleReset}>All</li>
@@ -171,7 +175,12 @@ export const Products = () => {
           <label>
             <b>Search Product Here</b>
           </label>
-          <input onChange={(e)=>handleSearch(e.target.value)} placeholder="search products here..." type="text" className="form-control" />
+          <input
+            onChange={(e) => handleSearch(e.target.value)}
+            placeholder="search products here..."
+            type="text"
+            className="form-control"
+          />
         </div>
         <div className="row ">
           {products.map((el) => (

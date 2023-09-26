@@ -12,7 +12,10 @@ export const Login = () => {
 
   const postLogData = async (user) => {
     try {
-      const response = await axios.post("http://127.0.0.1:8008/v1/login", user);
+      const response = await axios.post(
+        "https://divine-beauty-backend-node.onrender.com/v1/login",
+        user
+      );
       alert(response.data.message);
       localStorage.setItem("auth", response.data.token);
       if (response.data.message === "Login successful") {
@@ -98,7 +101,12 @@ export const Login = () => {
               style={{ marginBottom: "1rem" }}
               className="d-flex justify-content-center"
             >
-               <p>Don't have an Account ? <span><a href="/sign-up">Sign up</a>{" "}here.</span></p>
+              <p>
+                Don't have an Account ?{" "}
+                <span>
+                  <a href="/sign-up">Sign up</a> here.
+                </span>
+              </p>
             </div>
             <img
               src="https://img.freepik.com/free-vector/nature-cosmetics-landing-page-template_23-2148611602.jpg"
