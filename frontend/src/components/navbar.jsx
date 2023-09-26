@@ -48,7 +48,7 @@ export const Navbar = () => {
               )}
               {!authToken ? (
                 <li>
-                  <a className="getstarted scrollto" href="/sign-up">
+                  <a className="getstarted scrollto" href="/log-in">
                     Create an Account
                   </a>
                 </li>
@@ -114,7 +114,7 @@ export const Navbar = () => {
                       <a
                         style={{ color: "black" }}
                         className="getstarted scrollto"
-                        href="/sign-up"
+                        href="/log-in"
                       >
                         Create an Account
                       </a>
