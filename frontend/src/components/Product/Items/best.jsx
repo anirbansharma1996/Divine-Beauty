@@ -5,6 +5,7 @@ import { useNavigate } from "react-router";
 export const Best = () => {
   const authToken = localStorage.getItem("auth");
   const [products, setProducts] = useState([]);
+  const[isLoading,setIsLoading]=useState(false)
   const perfumeDivRef = useRef(null);
   const navigate = useNavigate();
 
@@ -22,14 +23,17 @@ export const Best = () => {
   };
 
   const fetchProducts = async () => {
+    setIsLoading(true)
     try {
       let response = await axios.get(
         "https://divine-beauty-backend-node.onrender.com/v1/products"
       );
       if (response) {
+        setIsLoading(false)
         setProducts(response.data.products);
       }
     } catch (error) {
+      setIsLoading(false)
       console.log(error.message);
     }
   };
@@ -69,6 +73,14 @@ export const Best = () => {
 
   return (
     <div className="container perfume" style={{ marginTop: "2rem" }}>
+       {isLoading ? (
+        <div className="text-center" style={{margin:"7rem 0 5rem 0"}}>
+          <div className="spinner-border" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      ) :
+      <>
       <h4>Our Best Sellers</h4>
       <div className="perfume-div" ref={perfumeDivRef}>
         {filteredProductsDeo?.splice(0, 8).map((el) => (
@@ -127,6 +139,8 @@ export const Best = () => {
           <i class="bi bi-arrow-right"></i>
         </button>
       </div>
+      </>
+}
     </div>
   );
 };

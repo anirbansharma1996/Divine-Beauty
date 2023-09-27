@@ -17,8 +17,11 @@ export const UserData = () => {
   const [promo, setPromo] = useState("");
   const [total, setTotal] = useState(0);
   const [isApplied, setIsApplied] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isLoggingout, setIsLoggingout] = useState(false);
 
   const getUser = async () => {
+    setIsLoading(true);
     try {
       const res = await axios.get(
         "https://divine-beauty-backend-node.onrender.com/v1/user-details",
@@ -26,8 +29,10 @@ export const UserData = () => {
           headers: { Authorization: authToken },
         }
       );
+      setIsLoading(false);
       setUser((prev) => res.data.user);
     } catch (error) {
+      setIsLoading(false);
       console.log(error.message);
     }
   };
@@ -37,10 +42,12 @@ export const UserData = () => {
   }, []);
 
   const handleLogout = () => {
+    setIsLoggingout(true);
     localStorage.removeItem("auth");
     localStorage.removeItem("Total");
     localStorage.removeItem("product");
     setTimeout(() => {
+      setIsLoggingout(false);
       navigate("/log-in");
       window.location.reload();
     }, 1200);
@@ -83,134 +90,153 @@ export const UserData = () => {
       </div>
       <div className="user-container">
         <CartCard />
-        <div className="user-details">
-          <div className="user-details-div">
+        {isLoading ? (
+          <div className="text-center">
+            <div className="spinner-border" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        ) : (
+          <div className="user-details">
+            <div className="user-details-div">
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                <img
+                  width={40}
+                  style={{ borderRadius: "100%" }}
+                  src={user.image}
+                  alt={user.mobileNumber}
+                />{" "}
+                <h4>
+                  {" "}
+                  &nbsp;
+                  <b>{user.name}</b>
+                </h4>
+              </div>
+
+              <div>
+                <button
+                  onClick={() => navigate("/orders")}
+                  className="btn btn-warning"
+                >
+                  My Orders
+                </button>
+                &nbsp;
+               { !isLoggingout ? <button onClick={handleLogout} className="btn btn-danger">
+                  Log Out
+                </button>
+                :
+                <button className="btn btn-danger" type="button" disabled>
+                      <span
+                        className="spinner-border spinner-border-sm"
+                        role="status"
+                        aria-hidden="true"
+                      ></span>
+                      {" "}Logging Out...
+                    </button>
+}
+              </div>
+            </div>
+            <p>
+              {" "}
+              <b> User Email : </b>
+              {user.email}
+            </p>
+            <p style={{ marginTop: "-1rem" }}>
+              <b> Delivery Address :</b> {user.address}
+            </p>
+            <p style={{ marginTop: "-1rem" }}>
+              {" "}
+              <b>Contact :</b> +91 {user.mobileNumber}
+            </p>
+            <hr />
             <div
               style={{
                 display: "flex",
-                alignItems: "center",
+                gap: "10px",
+                justifyContent: "space-between",
+                padding: "0 10px",
               }}
             >
-              <img
-                width={40}
-                style={{ borderRadius: "100%" }}
-                src={user.image}
-                alt={user.mobileNumber}
-              />{" "}
-              <h4>
-                {" "}
-                &nbsp;
-                <b>{user.name}</b>
-              </h4>
-            </div>
-            <div>
+              <input
+                type="text"
+                placeholder="promocode e.g.'new20'"
+                className="form-control"
+                onChange={handleInput}
+              />
               <button
-                onClick={() => navigate("/orders")}
-                className="btn btn-warning"
+                disabled={isApplied || cart.length == 0}
+                onClick={handlePromo}
+                className="btn btn-success"
               >
-                My Orders
-              </button>
-              &nbsp;
-              <button onClick={handleLogout} className="btn btn-danger">
-                Log Out
+                apply
               </button>
             </div>
-          </div>
-          <p>
-            {" "}
-            <b> User Email : </b>
-            {user.email}
-          </p>
-          <p style={{ marginTop: "-1rem" }}>
-            <b> Delivery Address :</b> {user.address}
-          </p>
-          <p style={{ marginTop: "-1rem" }}>
-            {" "}
-            <b>Contact :</b> +91 {user.mobileNumber}
-          </p>
-          <hr />
-          <div
-            style={{
-              display: "flex",
-              gap: "10px",
-              justifyContent: "space-between",
-              padding: "0 10px",
-            }}
-          >
-            <input
-              type="text"
-              placeholder="promocode e.g.'new20'"
-              className="form-control"
-              onChange={handleInput}
-            />
-            <button
-              disabled={isApplied || cart.length == 0}
-              onClick={handlePromo}
-              className="btn btn-success"
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                padding: "10px",
+              }}
             >
-              apply
-            </button>
-          </div>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              padding: "10px",
-            }}
-          >
-            <h5>Amount</h5>
-            <p>
-              {" "}
-              {isApplied && <s style={{ color: "grey" }}> ₹{bill}</s>} ₹{" "}
-              {total || bill} /-
-            </p>
-          </div>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              padding: " 0 10px",
-              marginTop: "-1.5rem",
-            }}
-          >
-            <h6 style={{ color: "GrayText" }}>Tax</h6>
-            <p>
-              ₹{" "}
-              {(isApplied && Math.ceil((total * 18) / 100)) ||
-                Math.ceil((bill * 18) / 100)}
-              /-
-            </p>
-          </div>
-          <hr style={{ marginTop: "-0.7rem" }} />
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              padding: " 0 10px",
-              marginTop: "-0.6rem",
-            }}
-          >
-            <h5 style={{ color: "GrayText" }}>Total</h5>
-            <p style={{ fontSize: "20px", fontWeight: "700" }}>
-              ₹{" "}
-              {(isApplied && Math.ceil(total + (total * 18) / 100)) ||
-                Math.ceil(bill + (bill * 18) / 100)}
-              /-
-            </p>
-          </div>
+              <h5>Amount</h5>
+              <p>
+                {" "}
+                {isApplied && <s style={{ color: "grey" }}> ₹{bill}</s>} ₹{" "}
+                {total || bill} /-
+              </p>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                padding: " 0 10px",
+                marginTop: "-1.5rem",
+              }}
+            >
+              <h6 style={{ color: "GrayText" }}>Tax</h6>
+              <p>
+                ₹{" "}
+                {(isApplied && Math.ceil((total * 18) / 100)) ||
+                  Math.ceil((bill * 18) / 100)}
+                /-
+              </p>
+            </div>
+            <hr style={{ marginTop: "-0.7rem" }} />
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                padding: " 0 10px",
+                marginTop: "-0.6rem",
+              }}
+            >
+              <h5 style={{ color: "GrayText" }}>Total</h5>
+              <p style={{ fontSize: "20px", fontWeight: "700" }}>
+                ₹{" "}
+                {(isApplied && Math.ceil(total + (total * 18) / 100)) ||
+                  Math.ceil(bill + (bill * 18) / 100)}
+                /-
+              </p>
+            </div>
 
-          {cart.length !== 0 && isPayform ? (
-            <Payment props={user} totalBill={total} isApplied={isApplied} />
-          ) : (
-            <button
-              onClick={handleCheckOut}
-              style={{ width: "100%" }}
-              className="btn btn-info"
-            >
-              Checkout
-            </button>
-          )}
-        </div>
+            {cart.length !== 0 && isPayform ? (
+              <Payment props={user} totalBill={total} isApplied={isApplied} />
+            ) : (
+              <button
+                onClick={handleCheckOut}
+                style={{ width: "100%" }}
+                className="btn btn-info"
+              >
+                Checkout
+              </button>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

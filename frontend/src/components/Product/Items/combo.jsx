@@ -5,6 +5,7 @@ import { useNavigate } from "react-router";
 export const Combo = () => {
   const authToken = localStorage.getItem("auth");
   const [products, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const perfumeDivRef = useRef(null);
   const navigate = useNavigate();
 
@@ -22,14 +23,17 @@ export const Combo = () => {
   };
 
   const fetchProducts = async () => {
+    setIsLoading(true);
     try {
       let response = await axios.get(
         "https://divine-beauty-backend-node.onrender.com/v1/products"
       );
       if (response) {
+        setIsLoading(false);
         setProducts(response.data.products);
       }
     } catch (error) {
+      setIsLoading(false);
       console.log(error.message);
     }
   };
@@ -69,64 +73,74 @@ export const Combo = () => {
 
   return (
     <div className="container perfume" style={{ marginTop: "2rem" }}>
-      <h4>Best Selling Combos</h4>
-      <div className="perfume-div" ref={perfumeDivRef}>
-        {filteredProductsDeo?.splice(0, 8).map((el) => (
-          <div
-            key={el.id}
-            className="col-lg-3 col-md-6 col-sm-6  portfolio-item"
-          >
-            <div className="portfolio-wrap portfolio-wrap-2">
-              <img src={el.image} className="img-fluid" alt={el.desc} />
-              <div className="portfolio-info">
-                <h4>{el.title}</h4>
-                <p>{el.offer}</p>
-                <h5 style={{ color: "white" }}>
-                  Price : <s>₹ {el.original}</s> | ₹{el.price}/-
-                </h5>
-                <div className="portfolio-links">
-                  <button
-                    className="btn btn-ghost"
-                    onClick={() => handleCart(el)}
-                  >
-                    <i
-                      style={{
-                        color: "white",
-                        padding: "5px 20px",
-                        border: "1px solid",
-                      }}
-                      className="bi bi-cart2"
-                    ></i>
-                  </button>
+      {isLoading ? (
+        <div className="text-center" style={{ margin: "7rem 0 5rem 0" }}>
+          <div className="spinner-border" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      ) : (
+        <>
+          <h4>Best Selling Combos</h4>
+          <div className="perfume-div" ref={perfumeDivRef}>
+            {filteredProductsDeo?.splice(0, 8).map((el) => (
+              <div
+                key={el.id}
+                className="col-lg-3 col-md-6 col-sm-6  portfolio-item"
+              >
+                <div className="portfolio-wrap portfolio-wrap-2">
+                  <img src={el.image} className="img-fluid" alt={el.desc} />
+                  <div className="portfolio-info">
+                    <h4>{el.title}</h4>
+                    <p>{el.offer}</p>
+                    <h5 style={{ color: "white" }}>
+                      Price : <s>₹ {el.original}</s> | ₹{el.price}/-
+                    </h5>
+                    <div className="portfolio-links">
+                      <button
+                        className="btn btn-ghost"
+                        onClick={() => handleCart(el)}
+                      >
+                        <i
+                          style={{
+                            color: "white",
+                            padding: "5px 20px",
+                            border: "1px solid",
+                          }}
+                          className="bi bi-cart2"
+                        ></i>
+                      </button>
 
-                  <button
-                    onClick={() => handleStore(el)}
-                    className="btn btn-ghost"
-                  >
-                    <i
-                      style={{
-                        color: "white",
-                        padding: "5px 20px",
-                        border: "1px solid",
-                      }}
-                      className="bi bi-eye"
-                    ></i>
-                  </button>
+                      <button
+                        onClick={() => handleStore(el)}
+                        className="btn btn-ghost"
+                      >
+                        <i
+                          style={{
+                            color: "white",
+                            padding: "5px 20px",
+                            border: "1px solid",
+                          }}
+                          className="bi bi-eye"
+                        ></i>
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
+            ))}
           </div>
-        ))}
-      </div>
-      <div className="direction-div">
-        <button className="btn btn-ghost direction" onClick={scrollPrev}>
-          <i class="bi bi-arrow-left"></i>
-        </button>
+          <div className="direction-div">
+            <button className="btn btn-ghost direction" onClick={scrollPrev}>
+              <i class="bi bi-arrow-left"></i>
+            </button>
 
-        <button className="btn btn-ghost direction" onClick={scrollNext}>
-          <i class="bi bi-arrow-right"></i>
-        </button>
-      </div>
+            <button className="btn btn-ghost direction" onClick={scrollNext}>
+              <i class="bi bi-arrow-right"></i>
+            </button>
+          </div>
+        </>
+      )}
     </div>
   );
 };

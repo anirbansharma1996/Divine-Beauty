@@ -13,20 +13,24 @@ export const Signup = () => {
     password: "",
   });
   const navigate = useNavigate();
+  const [isLoading,setIsLoading]=useState(false)
 
   const postData = async (user) => {
+    setIsLoading(true)
     try {
       const response = await axios.post(
         "https://divine-beauty-backend-node.onrender.com/v1/signup",
         user
       );
-      alert(response.data.message);
+    
+      setIsLoading(false)
       if (response.data.message === "User created successfully") {
         setTimeout(() => {
           navigate("/log-in");
         }, 1200);
       }
     } catch (err) {
+      setIsLoading(false)
       alert(err.message);
     }
   };
@@ -198,9 +202,19 @@ export const Signup = () => {
                   </div>
                 </div>
                 <div className="col-12">
-                  <button type="submit" className="btn btn-primary">
+                  {!isLoading ? <button type="submit" className="btn btn-primary">
                     Sign up
                   </button>
+                  :
+                  <button className="btn btn-primary" type="button" disabled>
+                      <span
+                        className="spinner-border spinner-border-sm"
+                        role="status"
+                        aria-hidden="true"
+                      ></span>
+                      {" "}Loading...
+                    </button>
+}
                 </div>
               </form>
             </div>

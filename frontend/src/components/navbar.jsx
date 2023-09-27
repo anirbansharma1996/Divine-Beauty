@@ -138,6 +138,7 @@ export const User = ({ props }) => {
   return (
     <div
       onClick={() => navigate("/user")}
+      data-bs-dismiss="offcanvas"
       className="getstarted scrollto d-flex align-items-center"
     >
       <img

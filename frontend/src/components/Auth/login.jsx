@@ -9,22 +9,25 @@ export const Login = () => {
     email: "",
     password: "",
   });
+  const [isLoading, setIsloading] = useState(false);
 
   const postLogData = async (user) => {
+    setIsloading(true);
     try {
       const response = await axios.post(
         "https://divine-beauty-backend-node.onrender.com/v1/login",
         user
       );
-      alert(response.data.message);
+      setIsloading(false);
       localStorage.setItem("auth", response.data.token);
       if (response.data.message === "Login successful") {
         setTimeout(() => {
           navigate("/products");
           window.location.reload();
-        }, 1200);
+        }, 1000);
       }
     } catch (err) {
+      setIsloading(false);
       alert(err.message);
     }
   };
@@ -89,9 +92,20 @@ export const Login = () => {
                   </div>
                 </div>
                 <div className="col-12">
-                  <button type="submit" className="btn btn-primary">
-                    Log In
-                  </button>
+                  {!isLoading ? (
+                    <button type="submit" className="btn btn-primary">
+                      Log In
+                    </button>
+                  ) : (
+                    <button className="btn btn-primary" type="button" disabled>
+                      <span
+                        className="spinner-border spinner-border-sm"
+                        role="status"
+                        aria-hidden="true"
+                      ></span>
+                      {" "}Loading...
+                    </button>
+                  )}
                 </div>
               </form>
             </div>
