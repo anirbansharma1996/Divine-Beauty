@@ -90,7 +90,7 @@ export const Products = () => {
   return (
     <section id="portfolio" className="portfolio" style={{ marginTop: "25px" }}>
       {isLoading ? (
-        <div className="text-center" style={{margin:"7rem 0 5rem 0"}}>
+        <div className="text-center" style={{ margin: "7rem 0 5rem 0" }}>
           <div className="spinner-border" role="status">
             <span className="visually-hidden">Loading...</span>
           </div>
@@ -139,12 +139,28 @@ export const Products = () => {
                         <b>Filter by Price</b>
                       </p>
                       <hr />
-                      <li  data-bs-dismiss="offcanvas" onClick={() => handleRange(0, 350)}>Below ₹350</li>
-                      <li  data-bs-dismiss="offcanvas" onClick={() => handleRange(351, 750)}>₹351 - ₹750</li>
-                      <li  data-bs-dismiss="offcanvas" onClick={() => handleRange(751, 1000)}>
+                      <li
+                        data-bs-dismiss="offcanvas"
+                        onClick={() => handleRange(0, 350)}
+                      >
+                        Below ₹350
+                      </li>
+                      <li
+                        data-bs-dismiss="offcanvas"
+                        onClick={() => handleRange(351, 750)}
+                      >
+                        ₹351 - ₹750
+                      </li>
+                      <li
+                        data-bs-dismiss="offcanvas"
+                        onClick={() => handleRange(751, 1000)}
+                      >
                         ₹751 - ₹1000
                       </li>
-                      <li  data-bs-dismiss="offcanvas" onClick={() => handleRange(1001, Infinity)}>
+                      <li
+                        data-bs-dismiss="offcanvas"
+                        onClick={() => handleRange(1001, Infinity)}
+                      >
                         Above ₹1000
                       </li>
                     </ul>
@@ -154,9 +170,22 @@ export const Products = () => {
                         <b>Filter by Category</b>
                       </p>
                       <hr />
-                      <li  data-bs-dismiss="offcanvas" onClick={() => handleCategory("perfume")}>Perfume</li>
-                      <li  data-bs-dismiss="offcanvas" onClick={() => handleCategory("combo")}>Combos</li>
-                      <li  data-bs-dismiss="offcanvas" onClick={() => handleCategory("lotion")}>
+                      <li
+                        data-bs-dismiss="offcanvas"
+                        onClick={() => handleCategory("perfume")}
+                      >
+                        Perfume
+                      </li>
+                      <li
+                        data-bs-dismiss="offcanvas"
+                        onClick={() => handleCategory("combo")}
+                      >
+                        Combos
+                      </li>
+                      <li
+                        data-bs-dismiss="offcanvas"
+                        onClick={() => handleCategory("lotion")}
+                      >
                         Lotion & Cream
                       </li>
                     </ul>
@@ -166,14 +195,31 @@ export const Products = () => {
                         <b>Filter by Gender</b>
                       </p>
                       <hr />
-                      <li  data-bs-dismiss="offcanvas" onClick={() => handleGender("man")}>MEN</li>
-                      <li  data-bs-dismiss="offcanvas" onClick={() => handleGender("woman")}>WOMEN</li>
-                      <li  data-bs-dismiss="offcanvas" onClick={() => handleGender("unisex")}>UNISEX</li>
+                      <li
+                        data-bs-dismiss="offcanvas"
+                        onClick={() => handleGender("man")}
+                      >
+                        MEN
+                      </li>
+                      <li
+                        data-bs-dismiss="offcanvas"
+                        onClick={() => handleGender("woman")}
+                      >
+                        WOMEN
+                      </li>
+                      <li
+                        data-bs-dismiss="offcanvas"
+                        onClick={() => handleGender("unisex")}
+                      >
+                        UNISEX
+                      </li>
                     </ul>
                   </div>
                 </div>
                 <div className="offcanvas-header">
-                  <p style={{color:"grey"}} id="offcanvasLeftLabel"><b> [ONE FILTER AT A TIME]</b></p>
+                  <p style={{ color: "grey" }} id="offcanvasLeftLabel">
+                    <b> [ONE FILTER AT A TIME]</b>
+                  </p>
                   <button
                     type="button"
                     className="btn-close text-reset"

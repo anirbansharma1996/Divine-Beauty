@@ -91,8 +91,8 @@ export const UserData = () => {
       <div className="user-container">
         <CartCard />
         {isLoading ? (
-          <div className="text-center">
-            <div className="spinner-border" role="status">
+          <div className="text-center" >
+            <div className="spinner-border" role="status" style={{margin:"5rem 0rem -5rem 5rem"}}>
               <span className="visually-hidden">Loading...</span>
             </div>
           </div>
