@@ -93,10 +93,9 @@ export const Footer = () => {
               </ul>
             </div>
             <div className="col-lg-4 col-md-6 footer-newsletter">
-              <h4>Our Newsletter</h4>
+              <h4>Your Feedback</h4>
               <p>
-                Tamen quem nulla quae legam multos aute sint culpa legam noster
-                magna
+                give us feedbacks to improve more
               </p>
               <form action method="post">
                 <input type="email" name="email" />
@@ -115,7 +114,7 @@ export const Footer = () => {
           . All Rights Reserved
         </div>
         <div className="credits">
-          Designed by <a href="">Anirban Sharma</a>
+          Designed by <a href="https://www.linkedin.com/in/anirban-sharma1996">Anirban Sharma</a>
         </div>
       </div>
     </footer>
