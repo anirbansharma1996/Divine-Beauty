@@ -139,12 +139,12 @@ export const Products = () => {
                         <b>Filter by Price</b>
                       </p>
                       <hr />
-                      <li onClick={() => handleRange(0, 350)}>Below ₹350</li>
-                      <li onClick={() => handleRange(351, 750)}>₹351 - ₹750</li>
-                      <li onClick={() => handleRange(751, 1000)}>
+                      <li  data-bs-dismiss="offcanvas" onClick={() => handleRange(0, 350)}>Below ₹350</li>
+                      <li  data-bs-dismiss="offcanvas" onClick={() => handleRange(351, 750)}>₹351 - ₹750</li>
+                      <li  data-bs-dismiss="offcanvas" onClick={() => handleRange(751, 1000)}>
                         ₹751 - ₹1000
                       </li>
-                      <li onClick={() => handleRange(1001, Infinity)}>
+                      <li  data-bs-dismiss="offcanvas" onClick={() => handleRange(1001, Infinity)}>
                         Above ₹1000
                       </li>
                     </ul>
@@ -154,9 +154,9 @@ export const Products = () => {
                         <b>Filter by Category</b>
                       </p>
                       <hr />
-                      <li onClick={() => handleCategory("perfume")}>Perfume</li>
-                      <li onClick={() => handleCategory("combo")}>Combos</li>
-                      <li onClick={() => handleCategory("lotion")}>
+                      <li  data-bs-dismiss="offcanvas" onClick={() => handleCategory("perfume")}>Perfume</li>
+                      <li  data-bs-dismiss="offcanvas" onClick={() => handleCategory("combo")}>Combos</li>
+                      <li  data-bs-dismiss="offcanvas" onClick={() => handleCategory("lotion")}>
                         Lotion & Cream
                       </li>
                     </ul>
@@ -166,14 +166,14 @@ export const Products = () => {
                         <b>Filter by Gender</b>
                       </p>
                       <hr />
-                      <li onClick={() => handleGender("man")}>MEN</li>
-                      <li onClick={() => handleGender("woman")}>WOMEN</li>
-                      <li onClick={() => handleGender("unisex")}>UNISEX</li>
+                      <li  data-bs-dismiss="offcanvas" onClick={() => handleGender("man")}>MEN</li>
+                      <li  data-bs-dismiss="offcanvas" onClick={() => handleGender("woman")}>WOMEN</li>
+                      <li  data-bs-dismiss="offcanvas" onClick={() => handleGender("unisex")}>UNISEX</li>
                     </ul>
                   </div>
                 </div>
                 <div className="offcanvas-header">
-                  <h5 id="offcanvasLeftLabel"></h5>
+                  <p style={{color:"grey"}} id="offcanvasLeftLabel"><b> [ONE FILTER AT A TIME]</b></p>
                   <button
                     type="button"
                     className="btn-close text-reset"
