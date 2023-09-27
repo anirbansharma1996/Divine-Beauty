@@ -13,7 +13,7 @@ DivineBeauty is a web application dedicated to enhancing your beauty care routin
 - [Getting Started](#getting-started)
 - [Installation](#installation)
 - [Usage](#usage)
-- [License](#license)
+
 
 ## Features
 
@@ -26,12 +26,11 @@ DivineBeauty is a web application dedicated to enhancing your beauty care routin
 
 ## Technologies Used
 
-- **Frontend**: React, Chakra UI
+- **Frontend**: React.js, Bootstrap 5
 - **Backend**: Node.js, Express.js
 - **Database**: MongoDB
-- **Authentication**: Passport.js
-- **API Documentation**: Swagger
-- **Deployment**: Heroku, Netlify
+- **Authentication**: Bcrypt
+- **Deployment**: Render , Vercel
 - **Version Control**: Git, GitHub
 
 ## Getting Started
@@ -55,8 +54,8 @@ To get started with DivineBeauty on your local machine, follow these instruction
 3. Install the required dependencies for the frontend and backend:
 
    ```bash
-   cd client && npm install
-   cd ../server && npm install
+   cd frontend && npm install
+   cd backend && npm install
    ```
 
 ### Usage
@@ -64,21 +63,17 @@ To get started with DivineBeauty on your local machine, follow these instruction
 1. Start the backend server:
 
    ```bash
-   cd server && npm start
+   cd backend && npm start
    ```
 
 2. Start the frontend development server:
 
    ```bash
-   cd client && npm start
+   cd frontend && npm start
    ```
 
 3. Open your browser and go to `http://localhost:3000` to access the DivineBeauty application.
 
-### License
 
-This project is licensed under the [MIT License](LICENSE).
-
----
 
 Feel free to add more sections or details as needed, such as information about API endpoints, database setup, and any other specific instructions for running and developing the application. Make sure to replace placeholder URLs, usernames, and other generic information with your project's actual details.
