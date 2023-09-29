@@ -53,7 +53,7 @@ We would like to acknowledge the following open-source projects and libraries th
 Their contributions to the open-source community are greatly appreciated.
 
 ## DEPLOYMENT
-URL : https://divine-beauty-backend-node.onrender.com/v1
+URL : https://divine-beauty-backend-node.onrender.com
 
 ## Contact
 
